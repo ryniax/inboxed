@@ -1,0 +1,11 @@
+{
+  "name": "chat-app",
+  "private": "true",
+  "scripts": {
+    "bootstrap": "npx lerna bootstrap",
+    "dev:web": "npx lerna run dev:web --stream --parallel"
+  },
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  }
+}

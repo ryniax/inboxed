@@ -1,0 +1,22 @@
+version: '3'
+services:
+    postgres:
+        container_name: chatapp_postgres
+        image: postgres
+        ports:
+            - 5000:5432
+        volumes:
+            - sql-data:/var/lib/postgres
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: root
+            POSTGRES_DB: chat_dev
+    adminer:
+        container_name: chatapp_adminer
+        depends_on:
+            - postgres
+        image: adminer
+        ports:
+            - 5001:8080
+volumes:
+    sql-data:
