@@ -1,5 +1,5 @@
 {
-  "name": "chat-app",
+  "name": "next-talk",
   "private": "true",
   "scripts": {
     "bootstrap": "npx lerna bootstrap",
