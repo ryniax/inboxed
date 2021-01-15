@@ -1,10 +1,26 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div>
+    <div id="nav">
+      <router-link to="/">Home</router-link>
+      <router-link to="/about">About</router-link>
+    </div>
+    <router-view />
   </div>
-  <router-view/>
 </template>
+
+<script>
+import { io } from 'socket.io-client';
+
+export default {
+  mounted() {
+    const socket = io('http://localhost:3000');
+
+    socket.on('connect', (data) => {
+      console.log(`Socket with ${socket.id} ID connected.`);
+    });
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
