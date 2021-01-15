@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span>{{ socketID }}</span>
+    <span>Socket connected with ID: {{ socketID }}</span>
   </div>
 </template>
 
@@ -16,8 +16,8 @@ export default {
   mounted() {
     const socket = io('http://localhost:3000');
 
-    socket.on('connect', data => {
-      this.socketID = data.id;
+    socket.on('connect', () => {
+      this.socketID = socket.id;
     });
   },
 };
