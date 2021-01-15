@@ -1,18 +1,26 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div>
+    <span>{{ socketID }}</span>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+<script>
+import { io } from 'socket.io-client';
 
-export default defineComponent({
-  name: 'Home',
-  components: {
-    HelloWorld,
+export default {
+  data() {
+    return {
+      socketID: null,
+    };
   },
-});
+  mounted() {
+    const socket = io('http://localhost:3000');
+
+    socket.on('connect', data => {
+      this.socketID = data.id;
+    });
+  },
+};
 </script>
+
+<style></style>
