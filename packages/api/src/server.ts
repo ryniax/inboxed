@@ -1,6 +1,7 @@
 import { server } from './app';
 import { Server } from 'socket.io';
 import { InitializeEvents } from './events/index';
+import { accessEnv } from './utils/accessEnv';
 
 const socketIO = new Server(server, {
     cors: {
@@ -11,8 +12,8 @@ const socketIO = new Server(server, {
 
 InitializeEvents(socketIO);
 
-const PORT = 3000;
-const NODE_ENV = 'development';
+const PORT = accessEnv('PORT', 3000);
+const NODE_ENV = accessEnv('NODE_ENV', 'development');
 
 server.listen(PORT, async () => {
     console.log(`Server is listening on http://localhost:${PORT} in ${NODE_ENV} mode`);
