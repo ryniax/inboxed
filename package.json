@@ -4,7 +4,8 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "dev:web": "lerna run dev:web --stream --parallel",
-    "build": "lerna run build"
+	"build": "lerna run build",
+	"lint": "lerna run lint"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
