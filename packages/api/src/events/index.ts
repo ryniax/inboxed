@@ -1,7 +1,7 @@
-import { Server, Socket } from "socket.io";
+import { Server, Socket } from 'socket.io';
 
 export const InitializeEvents = (socketIO: Server) => {
-    socketIO.on("connection", (socket: Socket) => {
-        console.log(`Socket with ID ${socket.id} connected.`);
-    })
-}
+  socketIO.on('connection', (socket: Socket) => {
+    console.log(`Socket with ID ${socket.id} connected.`);
+  });
+};
