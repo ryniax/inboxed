@@ -2,9 +2,9 @@
   "name": "next-talk",
   "private": "true",
   "scripts": {
-    "bootstrap": "npx lerna bootstrap",
-    "dev:web": "npx lerna run dev:web --stream --parallel",
-    "build": "npx lerna run build"
+    "bootstrap": "lerna bootstrap",
+    "dev:web": "lerna run dev:web --stream --parallel",
+    "build": "lerna run build"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
