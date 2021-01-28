@@ -4,7 +4,8 @@
     "module": "commonjs",
     "lib": ["es6"],
     "allowJs": true,
-    "outDir": "./dist",
+	"outDir": "./dist",
+	"rootDir": "./",
     "strict": true,
     "noImplicitAny": false,
     "esModuleInterop": true,
@@ -14,5 +15,6 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
-  }
+  },
+  "exclude": ["dist", "node_modules", "build"]
 }
