@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import Main from './Main.vue';
 import router from './router';
 import store from './store';
+import './styles/index.scss';
 
 createApp(Main)
   .use(store)
