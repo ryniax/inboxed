@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <router-view />
-  </div>
+  <h1>Not found</h1>
 </template>
 
 <script>
