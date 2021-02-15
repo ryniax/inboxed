@@ -11,5 +11,5 @@ const socketIO = createSocketInstance(httpServer);
 initializeSocketEvents(socketIO);
 
 httpServer.listen(PORT, async () => {
-  Logger.debug(`Server is listening on http://localhost:${PORT} in ${NODE_ENV} mode`);
+  Logger.info(`Server is listening on http://localhost:${PORT} in ${NODE_ENV} mode`);
 });
