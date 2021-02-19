@@ -1,26 +1,20 @@
 <template>
-  <div class="login">
-    {{ $t('login') }}
-    <div class="locale-changer">
-      <select v-model="$i18n.locale">
-        <option v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`" :value="locale">
-          {{ locale }}
-        </option>
-      </select>
-    </div>
-  </div>
+  <AuthViewContainer>
+    <LoginForm />
+  </AuthViewContainer>
 </template>
 
-<script>
-export default {};
+<script lang="ts">
+import { defineComponent } from 'vue';
+import AuthViewContainer from '../components/auth-forms/containers/AuthViewContainer.vue';
+import LoginForm from '../components/auth-forms/LoginForm.vue';
+
+export default defineComponent({
+  components: {
+    LoginForm,
+    AuthViewContainer,
+  },
+});
 </script>
 
-<style scoped lang="scss">
-.login {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  background-image: url('../assets/backgrounds/login-register-background.svg');
-  background-size: cover;
-}
-</style>
+<style scoped lang="scss"></style>
