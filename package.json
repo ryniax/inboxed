@@ -3,7 +3,7 @@
   "private": "true",
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "dev:web": "lerna run dev:web --stream --parallel",
+    "dev:web": "lerna run dev --stream --parallel  --scope '{@inboxed/api,@inboxed/web}'",
 	"build": "lerna run build",
 	"lint": "lerna run lint",
 	"test": "lerna run test"

@@ -1,8 +1,8 @@
 {
-  "name": "web",
+  "name": "@inboxed/web",
   "private": true,
   "scripts": {
-    "dev:web": "vue-cli-service serve",
+    "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test": "vue-cli-service test:unit tests/*.ts",
     "lint": "vue-cli-service lint"

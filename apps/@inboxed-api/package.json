@@ -1,9 +1,9 @@
 {
-  "name": "api",
+  "name": "@inboxed/api",
   "private": true,
   "scripts": {
     "build": "rimraf dist && tsc",
-    "dev:web": "nodemon",
+    "dev": "nodemon",
     "lint": "prettier --write . && eslint . --ext .ts",
     "test": "cross-env NODE_ENV=test mocha -R min -r ts-node/register -r dotenv/config test/*.ts"
   },

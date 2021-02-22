@@ -1,0 +1,7 @@
+{
+  "name": "@inboxed/mobile",
+  "private": true,
+  "scripts": {
+    "dev": "echo \"Error: no test specified\" && exit 1"
+  }
+}
