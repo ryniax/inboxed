@@ -4,6 +4,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "dev:web": "lerna run dev --stream --parallel  --scope '{@inboxed/api,@inboxed/web}'",
+	"dev:mobile": "lerna run dev --stream --parallel --scope '{@inboxed/api,@inboxed/mobile}'",
 	"build": "lerna run build",
 	"lint": "lerna run lint",
 	"test": "lerna run test"
