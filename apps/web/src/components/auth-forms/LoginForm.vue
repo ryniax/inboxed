@@ -1,14 +1,20 @@
 <template>
   <AuthFormContainer>
     <AuthFormTitle>{{ $t('authForms.signIn') }}</AuthFormTitle>
-    <form @submit.prevent="tryLoginUser">
+    <form @submit.prevent="loginUser">
       <div class="form-inputs">
-        <AuthFormInput :label="$t('authForms.email')" inputType="text" iconName="email-icon" />
+        <AuthFormInput
+          :label="$t('authForms.email')"
+          inputType="text"
+          iconName="email-icon"
+          @input="setInputValue($event.target.value, 'email')"
+        />
         <AuthFormInput
           :label="$t('authForms.password')"
           inputType="password"
           iconName="password-icon"
           :underLabel="$t('authForms.forgotPassword')"
+          @input="setInputValue($event.target.value, 'password')"
         />
       </div>
       <div class="form-buttons">
@@ -24,7 +30,9 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, reactive } from 'vue';
+import { getModule } from 'vuex-module-decorators';
+import Auth from '@/store/AuthModule';
 import AuthFormTitle from '@/components/auth-forms/core/AuthFormTitle.vue';
 import AuthFormContainer from '@/components/auth-forms/containers/AuthFormContainer.vue';
 import AuthFormInput from '@/components/auth-forms/core/AuthFormInput.vue';
@@ -40,11 +48,15 @@ export default defineComponent({
     ButtonsDivider,
   },
   setup() {
-    // eslint-disable-next-line no-console
-    const tryLoginUser = () => console.log('Login user');
+    const loginFormData = reactive({});
+    const AuthModule = getModule(Auth);
+
+    const loginUser = () => AuthModule.loginUser(loginFormData);
+    const setInputValue = (value, name) => (loginFormData[name] = value);
 
     return {
-      tryLoginUser,
+      loginUser,
+      setInputValue,
     };
   },
 });

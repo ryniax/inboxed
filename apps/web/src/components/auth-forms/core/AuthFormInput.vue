@@ -3,7 +3,7 @@
     <span class="auth-form-input__label">{{ label }}</span>
     <div class="auth-form-input__background">
       <img :src="getIconPath" />
-      <input :type="inputType" />
+      <input :type="inputType" @input="setInputValue" />
     </div>
     <span class="auth-form-input__label auth-form-input__label--under" v-if="underLabel">{{
       underLabel
