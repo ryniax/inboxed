@@ -19,20 +19,35 @@ export default {};
 @media (min-width: 760px) {
   .auth-form-container {
     width: 80%;
-    height: unset;
+    height: 60%;
   }
 }
 
 @media (min-width: 1024px) {
   .auth-form-container {
     width: 65%;
-    height: unset;
+    height: 45%;
   }
 }
 
 @media (min-width: 1280px) {
   .auth-form-container {
     width: 40%;
+    height: 65%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .auth-form-container {
+    width: 37%;
+    height: 65%;
+  }
+}
+
+@media (min-width: 1920px) {
+  .auth-form-container {
+    width: 28%;
+    height: 60%;
   }
 }
 </style>

@@ -1,3 +1,5 @@
+import authForms from './pl_PL/authForms';
+
 export default {
-  login: 'Logowanie',
+  authForms,
 };

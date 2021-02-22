@@ -49,8 +49,8 @@ export default defineComponent({
 <style scoped lang="scss">
 .auth-form-input {
   margin-bottom: 2.4rem;
+  width: 100%;
 
-  width: 95%;
   &__background {
     display: flex;
     align-items: center;
@@ -90,6 +90,12 @@ export default defineComponent({
       font-size: 1rem;
       text-transform: none;
       color: $secondary-accent-color;
+      cursor: pointer;
+    }
+
+    &--under:hover {
+      transition: 0.15s;
+      color: $primary-accent-color;
     }
   }
 }
