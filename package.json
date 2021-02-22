@@ -1,5 +1,5 @@
 {
-  "name": "next-talk",
+  "name": "inboxed",
   "private": "true",
   "scripts": {
     "bootstrap": "lerna bootstrap",
