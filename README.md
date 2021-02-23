@@ -4,8 +4,17 @@ Inboxed is an educational project of a network communicator, inspired by applica
 
 ![Inboxed Dashboard](./assets/inboxed-dashboard.png)
 
+# Table of Content
+
+[Technologies](#technologies)<br/>
+[Project Setup Instructions](#project-setup-instructions)<br/>
+[Useful Resources](#useful-resources)
+
+<a name="technologies"></a>
+
 # Technologies
 
+- Monorepo with Lerna
 - Typescript
 - Docker
 - Express.js
@@ -13,16 +22,13 @@ Inboxed is an educational project of a network communicator, inspired by applica
 - PostgreSQL
 - Vue 3
 - SocketIO
+- Flutter and Dart
+- Electron
+- Sentry
 
-# Project setup instructions list
+<a name="project-setup-instructions"></a>
 
-[Web Setup](#web-setup)<br/>
-[Mobile Setup](#mobile-setup)</br>
-[Desktop Setup](#desktop-setup)
-
-<hr/>
-
-<a name="web-setup"></a>
+# Project Setup Instructions
 
 ## Web Setup
 
@@ -34,14 +40,19 @@ In order to run our web project, you will need Node.js and Docker on your PC. Mo
 4. Now you can run web application, but you will need a database to work that properly. You can run database in docker by: `docker-compose up`.
 5. When database is running, you can run web app by that command: `npm run dev:web`.
 
-<a name="mobile-setup"></a>
-
 ## Mobile Setup
 
 In progress.
 
-<a name="desktop-setup"></a>
-
 ## Desktop Setup
 
 In progress.
+
+<a name="useful-resources"></a>
+
+# Useful Resources
+
+[Designs in Figma](https://www.figma.com/file/T9l3qS4m43YFZwwKQUQtbb/Inboxed?node-id=0%3A1)<br />
+[Trello Board](https://trello.com/b/bGXrujai/inboxed)
+<br />
+[Project Wiki](https://github.com/gLenczuk/inboxed/wiki)
