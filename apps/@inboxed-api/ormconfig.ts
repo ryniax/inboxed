@@ -11,6 +11,7 @@ const connectionOptions: ConnectionOptions = {
   password: accessEnv('DEV_DB_PASSWORD'),
   database: accessEnv('DEV_DB_NAME'),
   logging: !isProduction,
+  synchronize: !isProduction,
   entities: ['./src/models/*.ts'],
 };
 
