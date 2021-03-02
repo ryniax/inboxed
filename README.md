@@ -1,5 +1,9 @@
 # Inboxed
 
+![GitHub branch checks state](https://img.shields.io/github/checks-status/gLenczuk/inboxed/master)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/w/gLenczuk/inboxed)
+![GitHub repo size](https://img.shields.io/github/repo-size/gLenczuk/inboxed)
+
 Inboxed is an educational project of a network communicator, inspired by applications such as Discord, Slack and others. Our goal is to create web, desktop and mobile applications concetrated around backend based on web sockets.
 
 ![Inboxed Dashboard](./assets/inboxed-dashboard.png)
@@ -17,14 +21,15 @@ Inboxed is an educational project of a network communicator, inspired by applica
 - Monorepo with Lerna
 - Typescript
 - Docker
-- Express.js
+- Express
 - TypeORM
 - PostgreSQL
 - Vue 3
 - SocketIO
 - Flutter and Dart
 - Electron
-- Sentry
+- Sentry (error monitoring)
+- CI/CD with Github Actions
 
 <a name="project-setup-instructions"></a>
 
