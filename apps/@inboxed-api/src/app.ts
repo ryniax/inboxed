@@ -8,10 +8,14 @@ import { connectDatabase } from './database/connection';
 import { errorHandler, notFoundHandler } from './api/middlewares/errorHandler';
 
 const app = express();
+
 connectDatabase();
 
 app.use(helmet());
 app.use(middlewares.morgan);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(middlewares.expressSession);
 
 app.use('/api/v1', userRouter);
 
