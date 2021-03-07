@@ -4,7 +4,6 @@ import { User, UserType } from '../../models/User';
 import { getUserDTO } from './user.dto';
 import ErrorFactory, { AuthError } from '../../providers/errorFactory';
 import userUtils from './user.utils';
-import userValidator from './user.validator';
 
 const getUser = async (userId: number) => {
   const userRepository = getRepository(User);
@@ -16,6 +15,21 @@ const getUser = async (userId: number) => {
   }
 
   return getUserDTO(user);
+};
+
+const checkIfUserIsUnique = async (email: string, nickname: string) => {
+  const userRepository = getRepository(User);
+  const user = await userRepository.findOne({ where: [{ email }, { nickname }] });
+
+  if (user) {
+    let errorMessage = '';
+
+    if (user.nickname === nickname) errorMessage = 'User with that nickname already exists.';
+    if (user.email === email) errorMessage = 'User with that email already exists.';
+
+    const error = ErrorFactory.CreateError(AuthError, 400, errorMessage);
+    throw error;
+  }
 };
 
 const registerGuest = async () => {
@@ -30,9 +44,9 @@ const registerGuest = async () => {
 const registerUser = async (email: string, nickname: string, password: string) => {
   const userRepository = getRepository(User);
 
-  await userValidator.uniqueUserValidation(email, nickname, userRepository);
-  const hashedPassword = await bcrypt.hash(password, 10);
+  await checkIfUserIsUnique(email, nickname);
 
+  const hashedPassword = await bcrypt.hash(password, 10);
   const registeredUser = await userRepository
     .create({ email, nickname, password: hashedPassword, userType: UserType.REGISTERED })
     .save();
@@ -43,9 +57,9 @@ const registerUser = async (email: string, nickname: string, password: string) =
 const registerUserFromGuest = async (email: string, nickname: string, password: string, userId: number) => {
   const userRepository = getRepository(User);
 
-  await userValidator.uniqueUserValidation(email, nickname, userRepository);
-  const hashedPassword = await bcrypt.hash(password, 10);
+  await checkIfUserIsUnique(email, nickname);
 
+  const hashedPassword = await bcrypt.hash(password, 10);
   await userRepository.update(userId, {
     email,
     nickname,
@@ -59,11 +73,21 @@ const registerUserFromGuest = async (email: string, nickname: string, password: 
 
 const loginUser = async (email: string, password: string) => {
   const userRepository = getRepository(User);
-
   const user = await userRepository.findOne({ where: { email } });
-  const validatedUser = await userValidator.credentialsValidation(password, user);
 
-  return getUserDTO(validatedUser);
+  if (!user) {
+    const error = ErrorFactory.CreateError(AuthError, 400, 'Invalid credentials.');
+    throw error;
+  }
+
+  const passwordMatch = await bcrypt.compare(password, user.password);
+
+  if (!passwordMatch) {
+    const error = ErrorFactory.CreateError(AuthError, 400, 'Invalid credentials.');
+    throw error;
+  }
+
+  return getUserDTO(user);
 };
 
 export default {
@@ -72,4 +96,5 @@ export default {
   loginUser,
   getUser,
   registerUserFromGuest,
+  checkIfUserIsUnique,
 };
