@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
-import { ExtendedError } from '../../../interfaces/ExtendedError';
 import { User } from '../../../models/User';
+import ErrorFactory, { AuthError } from '../../../providers/errorFactory';
 
 export const uniqueUserValidation = async (email: string, nickname: string, userRepository: Repository<User>) => {
   const user = await userRepository.findOne({ where: [{ email }, { nickname }] });
@@ -11,8 +11,7 @@ export const uniqueUserValidation = async (email: string, nickname: string, user
     if (user.nickname === nickname) errorMessage = 'User with that nickname already exists.';
     if (user.email === email) errorMessage = 'User with that email already exists.';
 
-    const error: ExtendedError = new Error(errorMessage);
-    error.status = 400;
+    const error = ErrorFactory.CreateError(AuthError, 400, errorMessage);
     throw error;
   }
 };
