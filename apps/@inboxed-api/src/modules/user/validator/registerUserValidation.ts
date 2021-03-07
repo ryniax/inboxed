@@ -15,9 +15,3 @@ export const registerUserValidation = [
     .isLength({ min: MINIMUM_PASSWORD_LENGTH })
     .withMessage(`Nickname should be at least ${MINIMUM_PASSWORD_LENGTH} character long.`),
 ];
-
-export const loginUserValidation = [
-  check('email').notEmpty().withMessage('Email is required'),
-  check('password').notEmpty().withMessage('Password is required.'),
-  check('email').isEmail().withMessage('Email should be a valid email value.'),
-];

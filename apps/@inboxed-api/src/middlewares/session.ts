@@ -1,5 +1,5 @@
 import session from 'express-session';
-import { accessEnv } from '../../utils/accessEnv';
+import { accessEnv } from '../utils/accessEnv';
 
 const expressSession = session({
   secret: accessEnv('DEV_SECRET_SESSION', 'secret-key'),

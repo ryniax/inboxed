@@ -1,11 +1,11 @@
 import express from 'express';
 import http from 'http';
 import helmet from 'helmet';
-import middlewares from './api/middlewares/index';
-import userRouter from './api/routes/userRouter';
+import middlewares from './middlewares/index';
+import userRouter from './modules/user/router';
 
 import { connectDatabase } from './database/connection';
-import { errorHandler, notFoundHandler } from './api/middlewares/errorHandler';
+import { errorHandler, notFoundHandler } from './middlewares/errorHandler';
 
 const app = express();
 
