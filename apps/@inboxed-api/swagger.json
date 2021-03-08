@@ -1,0 +1,27 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Inboxed REST API",
+		"version": "1.0.0",
+		"description": "REST API documentation for Inboxed application.",
+		"contact": {
+			"email": "lenczuk.dev@gmail.com"
+		}
+	},
+	"servers": [{"url": "http://localhost:3000/api/v1", "description": "Development server"}],
+	"tags": [{"name": "User" }],
+	"paths": {
+		"/user/session": {
+			"get": {
+				"security": [],
+				"description": "This is route for getting user from current session by its user ID.",
+				"tags": ["User"]
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"User": {}
+		}
+	}
+}
