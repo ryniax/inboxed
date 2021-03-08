@@ -1,100 +1,88 @@
 import { getRepository } from 'typeorm';
 import bcrypt from 'bcryptjs';
 import { User, UserType } from '../../models/User';
-import { getUserDTO } from './user.dto';
-import ErrorFactory, { AuthError } from '../../providers/errorFactory';
-import userUtils from './user.utils';
+import { userDTO } from './user.dto';
+import { HTTPError } from '../../utils/errors/httpError';
+import { InputError } from '../../utils/errors/inputError';
+import { mapUserParamsToQuery } from './user.helpers';
+import { FindUserParams } from '../../types/FindUserParams';
 
-const getUser = async (userId: number) => {
+const findUser = async (findUserParams: FindUserParams): Promise<User | undefined> => {
+  const isParamObjectEmpty = !Object.keys(findUserParams).length;
+
+  if (isParamObjectEmpty) throw new InputError('No params.');
+
   const userRepository = getRepository(User);
-  const user = await userRepository.findOne(userId);
+  const queryParams = mapUserParamsToQuery(findUserParams);
+  const user = await userRepository.findOne({ where: queryParams });
 
-  if (!user) {
-    const error = ErrorFactory.CreateError(AuthError, 404, 'User not found.');
-    throw error;
-  }
-
-  return getUserDTO(user);
+  return user;
 };
 
-const checkIfUserIsUnique = async (email: string, nickname: string) => {
-  const userRepository = getRepository(User);
-  const user = await userRepository.findOne({ where: [{ email }, { nickname }] });
+const getSessionUser = async (userId: number) => {
+  const user = await findUser({ userId });
+  if (!user) throw new HTTPError('Record not found', 400);
 
-  if (user) {
-    let errorMessage = '';
-
-    if (user.nickname === nickname) errorMessage = 'User with that nickname already exists.';
-    if (user.email === email) errorMessage = 'User with that email already exists.';
-
-    const error = ErrorFactory.CreateError(AuthError, 400, errorMessage);
-    throw error;
-  }
+  return userDTO(user);
 };
 
 const registerGuest = async () => {
   const userRepository = getRepository(User);
+  const guest = await userRepository.create().save();
 
-  const nickname = userUtils.createGuestNickname();
-  const newGuestAccount = await userRepository.create({ nickname }).save();
-
-  return getUserDTO(newGuestAccount);
+  return userDTO(guest);
 };
 
 const registerUser = async (email: string, nickname: string, password: string) => {
-  const userRepository = getRepository(User);
-
-  await checkIfUserIsUnique(email, nickname);
+  const userExists = await findUser({ email, nickname });
+  if (userExists) {
+    throw new HTTPError('User with that email or nickname already exists', 400);
+  }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-  const registeredUser = await userRepository
+
+  const userRepository = getRepository(User);
+  const user = await userRepository
     .create({ email, nickname, password: hashedPassword, userType: UserType.REGISTERED })
     .save();
 
-  return getUserDTO(registeredUser);
+  return userDTO(user);
 };
 
 const registerUserFromGuest = async (email: string, nickname: string, password: string, userId: number) => {
-  const userRepository = getRepository(User);
-
-  await checkIfUserIsUnique(email, nickname);
+  const userExists = await findUser({ email, nickname });
+  if (userExists) {
+    throw new HTTPError('User with that email or nickname already exists', 400);
+  }
 
   const hashedPassword = await bcrypt.hash(password, 10);
+
+  const userRepository = getRepository(User);
   await userRepository.update(userId, {
     email,
     nickname,
     password: hashedPassword,
     userType: UserType.REGISTERED,
   });
-  const updatedUser = await getUser(userId);
 
-  return updatedUser;
+  const user = await getSessionUser(userId);
+  return user;
 };
 
 const loginUser = async (email: string, password: string) => {
-  const userRepository = getRepository(User);
-  const user = await userRepository.findOne({ where: { email } });
-
-  if (!user) {
-    const error = ErrorFactory.CreateError(AuthError, 400, 'Invalid credentials.');
-    throw error;
-  }
+  const user = await findUser({ email });
+  if (!user) throw new HTTPError('Invalid credentials', 400);
 
   const passwordMatch = await bcrypt.compare(password, user.password);
+  if (!passwordMatch) throw new HTTPError('Invalid credentials', 400);
 
-  if (!passwordMatch) {
-    const error = ErrorFactory.CreateError(AuthError, 400, 'Invalid credentials.');
-    throw error;
-  }
-
-  return getUserDTO(user);
+  return userDTO(user);
 };
 
 export default {
   registerGuest,
   registerUser,
   loginUser,
-  getUser,
   registerUserFromGuest,
-  checkIfUserIsUnique,
+  getSessionUser,
 };

@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
-import { ExtendedError } from '../interfaces/ExtendedError';
+import { HTTPError } from '../utils/errors/httpError';
 
-export const isAuth = (req: Request, res: Response, next: NextFunction) => {
+export default (req: Request, res: Response, next: NextFunction) => {
   if (!req.session.isAuth) {
-    const error: ExtendedError = new Error('Unauthorized.');
-    error.status = 401;
+    const error = new HTTPError('Unauthorized', 403);
     next(error);
   }
   next();

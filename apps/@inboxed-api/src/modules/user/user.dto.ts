@@ -1,8 +1,6 @@
 import { User } from '../../models/User';
 
-export type GetUserDTO = ReturnType<typeof getUserDTO>;
-
-export const getUserDTO = (user: User) => ({
+export const userDTO = (user: User) => ({
   id: user.id,
   nickname: user.nickname,
   email: user.email,
