@@ -25,7 +25,7 @@
       </div>
       <div class="form-buttons">
         <AuthFormButton>{{ $t('authForms.register') }}</AuthFormButton>
-        <ButtonsDivider>{{ $t('authForms.isAccount') }}</ButtonsDivider>
+        <ButtonsDivider>{{ $t('authForms.hasAccount') }}</ButtonsDivider>
         <AuthFormButton outline>{{ $t('authForms.logIn') }}</AuthFormButton>
       </div>
     </form>
