@@ -10,10 +10,10 @@
           @input="setInputValue($event.target.value, 'email')"
         />
         <AuthFormInput
-          :label="$t('authForms.nickname')"
+          :label="$t('authForms.username')"
           inputType="text"
           iconName="user-icon"
-          @input="setInputValue($event.target.value, 'nickname')"
+          @input="setInputValue($event.target.value, 'username')"
         />
         <AuthFormInput
           :label="$t('authForms.password')"

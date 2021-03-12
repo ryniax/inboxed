@@ -15,6 +15,7 @@ export default defineComponent({
     AuthViewContainer,
   },
   setup() {
+    // eslint-disable-next-line no-console
     onMounted(() => console.log('test'));
   },
 });

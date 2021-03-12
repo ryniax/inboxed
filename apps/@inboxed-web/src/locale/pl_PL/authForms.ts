@@ -1,14 +1,14 @@
 export default {
   singUp: 'rejestracja',
   signIn: 'logowanie',
-  nickname: 'pseudonim',
+  username: 'nazwa użytkownika',
   email: 'email',
   password: 'hasło',
   logIn: 'zaloguj się',
   register: 'zarejestruj się',
-  forgotPassword: 'Zapomniałeś hasła?',
-  noAccount: 'Nie masz konta?',
-  isAccount: 'Masz już konto?',
+  forgotPassword: 'zapomniałeś hasła?',
+  noAccount: 'nie masz konta?',
+  hasAccount: 'masz już konto?',
   guestAccount: 'lub dołącz jako',
   guest: 'gość!',
 };
