@@ -3,7 +3,7 @@ import { HTTPError } from '../utils/errors/httpError';
 
 export default (req: Request, res: Response, next: NextFunction) => {
   if (!req.session.isAuth) {
-    const error = new HTTPError('Unauthorized', 403);
+    const error = new HTTPError('Unauthorized', 401);
     next(error);
   }
   next();

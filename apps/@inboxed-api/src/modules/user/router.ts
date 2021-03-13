@@ -6,20 +6,16 @@ import { middlewares } from '../../middlewares';
 
 const router = express.Router();
 
-router.post('/user', userValidator.registerUserValidation, checkValidation, userController.registerUser);
-
+router.post('/users', userValidator.registerUserValidation, checkValidation, userController.registerUser);
 router.put(
-  '/user',
+  '/users/me',
   middlewares.isAuth,
   userValidator.registerUserValidation,
   checkValidation,
   userController.registerUserFromGuest,
 );
-
-router.post('/user/guest', userController.registerGuest);
-
-router.get('/user/session', middlewares.isAuth, userController.getSessionUser);
-
-router.post('/user/session', userValidator.loginUserValidation, checkValidation, userController.loginUser);
+router.post('/users/guest', userController.registerGuest);
+router.get('/users/session', middlewares.isAuth, userController.getSessionUser);
+router.post('/users/session', userValidator.loginUserValidation, checkValidation, userController.loginUser);
 
 export default router;

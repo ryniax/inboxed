@@ -4,12 +4,12 @@ import userService from './user.service';
 
 const registerGuest = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const guest = await userService.registerGuest();
+    const user = await userService.registerGuest();
 
-    req.session.userId = guest.id;
+    req.session.userId = user.id;
     req.session.isAuth = true;
 
-    SendResponse(res, guest, 201, 'Guest created');
+    SendResponse(res, { user }, 201, 'Guest created');
   } catch (error) {
     next(error);
   }
@@ -23,7 +23,7 @@ const registerUser = async (req: Request, res: Response, next: NextFunction) => 
     req.session.userId = user.id;
     req.session.isAuth = true;
 
-    SendResponse(res, user, 201, 'User created');
+    SendResponse(res, { user }, 201, 'User created');
   } catch (error) {
     next(error);
   }
@@ -36,7 +36,7 @@ const registerUserFromGuest = async (req: Request, res: Response, next: NextFunc
 
     const user = await userService.registerUserFromGuest(email, nickname, password, userId as number);
 
-    SendResponse(res, user, 200, 'User created');
+    SendResponse(res, { user }, 200, 'User created');
   } catch (error) {
     next(error);
   }
@@ -50,7 +50,7 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     req.session.userId = user.id;
     req.session.isAuth = true;
 
-    SendResponse(res, user, 200, 'User logged in');
+    SendResponse(res, { user }, 200, 'User logged in');
   } catch (error) {
     next(error);
   }
@@ -61,7 +61,7 @@ const getSessionUser = async (req: Request, res: Response, next: NextFunction) =
     const { userId } = req.session;
     const user = await userService.getSessionUser(userId as number);
 
-    SendResponse(res, user, 200, 'User found.');
+    SendResponse(res, { user }, 200, 'User found.');
   } catch (error) {
     next(error);
   }
