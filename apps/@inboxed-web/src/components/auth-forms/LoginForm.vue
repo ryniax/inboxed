@@ -111,4 +111,24 @@ form {
     }
   }
 }
+@media (orientation: landscape) and (max-width: 640px) {
+  .auth-form-container {
+    padding-top: 1rem;
+    .form-inputs {
+      padding-top: 0.5rem;
+      .auth-form-input {
+        margin-bottom: 0.8rem;
+      }
+    }
+    .form-buttons {
+      margin: 1rem 0;
+      button {
+        height: 45px;
+      }
+      .buttons-divider {
+        margin: 0.5rem;
+      }
+    }
+  }
+}
 </style>

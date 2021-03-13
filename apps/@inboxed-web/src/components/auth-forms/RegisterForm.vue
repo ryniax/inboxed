@@ -56,4 +56,80 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped lang="scss">
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 93%;
+
+  .form-inputs {
+    padding-top: 2.4rem;
+    width: 100%;
+  }
+
+  .form-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    &__guest-text {
+      font-family: $secondary-font;
+      color: $secondary-accent-color;
+      color: white;
+      font-weight: bold;
+      margin-top: 1.2rem;
+
+      span {
+        color: $primary-accent-color;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  form {
+    .form-inputs {
+      width: 95%;
+    }
+    .form-buttons {
+      width: 95%;
+      &__guest-text {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+@media (orientation: landscape) and (max-width: 640px) {
+  .auth-form-container {
+    padding-top: 1rem;
+    h1 {
+      font-size: 2rem;
+    }
+    .form-inputs {
+      padding-top: 0.5rem;
+      .auth-form-input {
+        margin-bottom: 0.8rem;
+        .auth-form-input__label {
+          font-size: 1.2rem;
+        }
+        .auth-form-input__background {
+          height: 3.5rem; //why it's not running?
+        }
+      }
+    }
+    .form-buttons {
+      margin: 1rem 0;
+      button {
+        height: 35px;
+      }
+      .buttons-divider {
+        margin: 0.5rem;
+      }
+    }
+  }
+}
+</style>
