@@ -30,6 +30,7 @@ Inboxed is an educational project of a network communicator, inspired by applica
 - Electron
 - Sentry (error monitoring)
 - CI/CD with Github Actions
+- Mocha/Chai (unit tests)
 
 <a name="project-setup-instructions"></a>
 
