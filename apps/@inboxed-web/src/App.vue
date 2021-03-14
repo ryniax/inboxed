@@ -1,11 +1,25 @@
 <template>
-  <div>
+  <div class="app">
+    <AppToolbar />
     <router-view />
   </div>
 </template>
 
 <script>
-export default {};
+import { defineComponent } from 'vue';
+import AppToolbar from './components/common/AppToolbar.vue';
+
+export default defineComponent({
+  components: {
+    AppToolbar,
+  },
+});
 </script>
 
-<style></style>
+<style scoped lang="scss">
+.app {
+  height: 100vh;
+  width: 100vw;
+  background-color: $secondary-color;
+}
+</style>
