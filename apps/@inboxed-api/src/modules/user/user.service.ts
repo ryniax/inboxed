@@ -20,7 +20,7 @@ const findUser = async (findUserParams: FindUserParams): Promise<User | undefine
 };
 
 const getSessionUser = async (userId: number) => {
-  const user = await findUser({ userId });
+  const user = await findUser({ id: userId });
   if (!user) throw new HTTPError('Record not found', 400);
 
   return userDTO(user);
