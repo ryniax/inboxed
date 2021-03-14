@@ -3,5 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "cd inboxed_mobile && flutter run --enable-software-rendering"
+  },
+  "dependencies": {
+    "@inboxed/common": "^1.0.0"
   }
 }

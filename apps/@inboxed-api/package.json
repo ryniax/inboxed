@@ -8,6 +8,7 @@
     "test": "cross-env NODE_ENV=test mocha -R min -r ts-node/register -r dotenv/config test/*.ts"
   },
   "dependencies": {
+    "@inboxed/common": "^1.0.0",
     "bcryptjs": "^2.4.3",
     "connect-typeorm": "^1.1.4",
     "cors": "^2.8.5",
