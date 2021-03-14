@@ -1,5 +1,5 @@
 export default {
-  singUp: 'rejestracja',
+  signUp: 'rejestracja',
   signIn: 'logowanie',
   username: 'nazwa użytkownika',
   email: 'email',

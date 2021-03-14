@@ -1,6 +1,6 @@
 <template>
   <AuthFormContainer>
-    <AuthFormTitle>{{ capitalize($t('authForms.singUp')) }}</AuthFormTitle>
+    <AuthFormTitle>{{ capitalize($t('authForms.signUp')) }}</AuthFormTitle>
     <form @submit.prevent="registerUser">
       <div class="form-inputs">
         <AuthFormInput
