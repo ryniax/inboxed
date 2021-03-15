@@ -1,393 +1,383 @@
 {
-	"openapi": "3.0.0",
-	"info": {
-		"title": "Inboxed REST API",
-		"version": "1.0.0",
-		"description": "REST API documentation for Inboxed application.",
-		"contact": {
-			"email": "lenczuk.dev@gmail.com"
-		}
-	},
-	"servers": [
-		{
-			"url": "http://localhost:3000/api/v1",
-			"description": "Development server"
-		}
-	],
-	"tags": [
-		{
-			"name": "User"
-		}
-	],
-	"paths": {
-		"/users/session": {
-			"get": {
-				"description": "This is route for getting user from current session by its user ID.",
-				"tags": [
-					"User"
-				],
-				"responses": {
-					"200": {
-						"description": "Succesful response.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"$ref": "#/components/responses/UserResponse"
-								}
-							}
-						}
-					},
-					"401": {
-						"description": "Unauthorized. No session established.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"$ref": "#/components/responses/UnauthorizedError"
-								}
-							}
-						}
-					}
-				}
-			},
-			"post": {
-				"description": "This is route to log in user.",
-				"tags": [
-					"User"
-				],
-				"requestBody": {
-					"description": "Required data to log in user.",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/requestBodies/LoginUserRequest"
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "Succesful response.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"$ref": "#/components/responses/UserResponse"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad request. Probably validation failed.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"$ref": "#/components/responses/BadRequestError"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/users/guest": {
-			"post": {
-				"description": "This is route for creating a new guest.",
-				"tags": [
-					"User"
-				],
-				"responses": {
-					"201": {
-						"description": "Succesful response.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"$ref": "#/components/responses/GuestResponse"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/users": {
-			"post": {
-				"description": "This is route for creating a new user.",
-				"tags": [
-					"User"
-				],
-				"requestBody": {
-					"description": "Required data to create a new user.",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/requestBodies/RegisterUserRequest"
-							}
-						}
-					}
-				},
-				"responses": {
-					"201": {
-						"description": "Succesful response.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"$ref": "#/components/responses/UserResponse"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad request. Probably validation failed.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"$ref": "#/components/responses/BadRequestError"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/users/me": {
-			"put": {
-				"description": "This is route for creating a new user from existing guest account.",
-				"tags": [
-					"User"
-				],
-				"requestBody": {
-					"description": "Required data to create a new user.",
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/requestBodies/RegisterUserRequest"
-							}
-						}
-					}
-				},
-				"responses": {
-					"201": {
-						"description": "Succesful response.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"$ref": "#/components/responses/UserResponse"
-								}
-							}
-						}
-					},
-					"400": {
-						"description": "Bad request. Probably validation failed.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"$ref": "#/components/responses/BadRequestError"
-								}
-							}
-						}
-					},
-					"401": {
-						"description": "Unauthorized. No session established.",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "array",
-									"$ref": "#/components/responses/UnauthorizedError"
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	},
-	"components": {
-		"schemas": {
-			"User": {
-				"type": "object",
-				"properties": {
-					"id": {
-						"type": "integer",
-						"example": "14"
-					},
-					"nickname": {
-						"type": "string",
-						"example": "daisy"
-					},
-					"email": {
-						"type": "string",
-						"example": "daisy1991@gmail.com"
-					},
-					"userType": {
-						"type": "string",
-						"example": "REGISTERED"
-					},
-					"createdAt": {
-						"type": "string",
-						"example": "2021-01-30T08:30:00Z"
-					},
-					"updatedAt": {
-						"type": "string",
-						"example": "2021-01-30T08:30:00Z"
-					}
-				}
-			},
-			"Guest": {
-				"type": "object",
-				"properties": {
-					"id": {
-						"type": "integer",
-						"example": "30"
-					},
-					"nickname": {
-						"type": "string",
-						"example": "null"
-					},
-					"email": {
-						"type": "string",
-						"example": "null"
-					},
-					"userType": {
-						"type": "string",
-						"example": "GUEST"
-					},
-					"createdAt": {
-						"type": "string",
-						"example": "2021-01-30T08:30:00Z"
-					},
-					"updatedAt": {
-						"type": "string",
-						"example": "2021-01-30T08:30:00Z"
-					}
-				}
-			}
-		},
-		"responses": {
-			"UserResponse": {
-				"type": "object",
-				"properties": {
-					"body": {
-						"type": "object",
-						"properties": {
-							"user": {
-								"type": "object",
-								"$ref": "#/components/schemas/User"
-							}
-						}
-					},
-					"message": {
-						"type": "string",
-						"description": "Response message from API."
-					}
-				}
-			},
-			"GuestResponse": {
-				"type": "object",
-				"properties": {
-					"body": {
-						"type": "object",
-						"properties": {
-							"user": {
-								"type": "object",
-								"$ref": "#/components/schemas/Guest"
-							}
-						}
-					},
-					"message": {
-						"type": "string",
-						"description": "Response message from API."
-					}
-				}
-			},
-			"UnauthorizedError": {
-				"type": "object",
-				"properties": {
-					"errors": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"msg": {
-									"type": "string",
-									"example": "Unauthorized"
-								},
-								"status": {
-									"type": "integer",
-									"example": "401"
-								}
-							}
-						}
-					}
-				}
-			},
-			"BadRequestError": {
-				"type": "object",
-				"properties": {
-					"errors": {
-						"type": "array",
-						"items": {
-							"type": "object",
-							"properties": {
-								"msg": {
-									"type": "string",
-									"example": "Email is required"
-								},
-								"field": {
-									"type": "string",
-									"example": "email"
-								},
-								"status": {
-									"type": "integer",
-									"example": 400
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"requestBodies": {
-			"RegisterUserRequest": {
-				"type": "object",
-				"properties": {
-					"nickname": {
-						"type": "string",
-						"example": "daisy"
-					},
-					"email": {
-						"type": "string",
-						"example": "daisy1991@gmail.com"
-					},
-					"password": {
-						"type": "string",
-						"example": "jd8621fdx"
-					}
-				}
-			},
-			"LoginUserRequest": {
-				"type": "object",
-				"properties": {
-					"email": {
-						"type": "string",
-						"example": "daisy1991@gmail.com"
-					},
-					"password": {
-						"type": "string",
-						"example": "jd8621fdx"
-					}
-				}
-			}
-		}
-	}
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Inboxed REST API",
+    "version": "1.0.0",
+    "description": "REST API documentation for Inboxed application.",
+    "contact": {
+      "email": "lenczuk.dev@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1",
+      "description": "Development server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "User"
+    }
+  ],
+  "paths": {
+    "/users/session": {
+      "get": {
+        "description": "This is route for getting user from current session by its user ID.",
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "Succesful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/responses/UserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. No session established.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "$ref": "#/components/responses/UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "This is route to log in user.",
+        "tags": ["User"],
+        "requestBody": {
+          "description": "Required data to log in user.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requestBodies/LoginUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Succesful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/responses/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request. Probably validation failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "$ref": "#/components/responses/BadRequestError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/guest": {
+      "post": {
+        "description": "This is route for creating a new guest.",
+        "tags": ["User"],
+        "responses": {
+          "201": {
+            "description": "Succesful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/responses/GuestResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "description": "This is route for creating a new user.",
+        "tags": ["User"],
+        "requestBody": {
+          "description": "Required data to create a new user.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requestBodies/RegisterUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Succesful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/responses/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request. Probably validation failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "$ref": "#/components/responses/BadRequestError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/me": {
+      "put": {
+        "description": "This is route for creating a new user from existing guest account.",
+        "tags": ["User"],
+        "requestBody": {
+          "description": "Required data to create a new user.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requestBodies/RegisterUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Succesful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/responses/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request. Probably validation failed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "$ref": "#/components/responses/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized. No session established.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "$ref": "#/components/responses/UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": "14"
+          },
+          "nickname": {
+            "type": "string",
+            "example": "daisy"
+          },
+          "email": {
+            "type": "string",
+            "example": "daisy1991@gmail.com"
+          },
+          "userType": {
+            "type": "string",
+            "example": "REGISTERED"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2021-01-30T08:30:00Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2021-01-30T08:30:00Z"
+          }
+        }
+      },
+      "Guest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": "30"
+          },
+          "nickname": {
+            "type": "string",
+            "example": "null"
+          },
+          "email": {
+            "type": "string",
+            "example": "null"
+          },
+          "userType": {
+            "type": "string",
+            "example": "GUEST"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2021-01-30T08:30:00Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2021-01-30T08:30:00Z"
+          }
+        }
+      }
+    },
+    "responses": {
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "type": "object",
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          },
+          "message": {
+            "type": "string",
+            "description": "Response message from API."
+          }
+        }
+      },
+      "GuestResponse": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "type": "object",
+                "$ref": "#/components/schemas/Guest"
+              }
+            }
+          },
+          "message": {
+            "type": "string",
+            "description": "Response message from API."
+          }
+        }
+      },
+      "UnauthorizedError": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Unauthorized"
+                },
+                "status": {
+                  "type": "integer",
+                  "example": "401"
+                }
+              }
+            }
+          }
+        }
+      },
+      "BadRequestError": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "example": "Email is required"
+                },
+                "field": {
+                  "type": "string",
+                  "example": "email"
+                },
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "RegisterUserRequest": {
+        "type": "object",
+        "properties": {
+          "nickname": {
+            "type": "string",
+            "example": "daisy"
+          },
+          "email": {
+            "type": "string",
+            "example": "daisy1991@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "jd8621fdx"
+          }
+        }
+      },
+      "LoginUserRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "daisy1991@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "jd8621fdx"
+          }
+        }
+      }
+    }
+  }
 }

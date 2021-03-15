@@ -1,14 +1,8 @@
 <template>
   <AuthFormContainer>
-<<<<<<< HEAD
-    <AuthFormTitle>{{ capitalize($t('authForms.singUp')) }}</AuthFormTitle>
+    <AuthFormTitle>{{ capitalize($t('authForms.signUp')) }}</AuthFormTitle>
     <form class="form" @submit.prevent="registerUser">
       <div class="form--inputs">
-=======
-    <AuthFormTitle>{{ capitalize($t('authForms.signUp')) }}</AuthFormTitle>
-    <form @submit.prevent="registerUser">
-      <div class="form-inputs">
->>>>>>> 3fef8f28454c26c1f6f240621e0f169e3d6b6074
         <AuthFormInput
           :label="capitalize($t('authForms.email'))"
           inputType="text"
@@ -25,7 +19,6 @@
           :label="capitalize($t('authForms.password'))"
           inputType="password"
           iconName="password-icon"
-          :underLabel="capitalize($t('authForms.forgotPassword'))"
           @input="setInputValue($event.target.value, 'password')"
         />
       </div>
@@ -118,24 +111,9 @@ export default {
     .form {
       &--inputs {
         padding-top: 0.5rem;
-        .auth-form-input {
-          margin-bottom: 0.8rem;
-          &__label {
-            font-size: 1.2rem;
-          }
-          &__background {
-            height: 3.3rem; //why it's not running?
-          }
-        }
       }
       &--buttons {
         margin: 1rem 0;
-        button {
-          height: 35px;
-        }
-        .buttons-divider {
-          margin: 0.5rem;
-        }
       }
     }
   }
