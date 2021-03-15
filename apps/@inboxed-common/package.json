@@ -2,7 +2,7 @@
   "name": "@inboxed/common",
   "private": "true",
   "version": "1.0.0",
-  "typings": "./src/index.d.ts",
+  "typings": "./dist/index.d.ts",
   "main": "dist/index.js",
   "scripts": {
     "build": "rimraf dist && tsc"
