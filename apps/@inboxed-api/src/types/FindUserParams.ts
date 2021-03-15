@@ -1,5 +1,5 @@
 export type FindUserParams = {
-  userId?: number;
+  id?: number;
   email?: string;
   nickname?: string;
 };

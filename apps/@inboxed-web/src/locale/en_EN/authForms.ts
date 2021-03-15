@@ -1,5 +1,5 @@
 export default {
-  singUp: 'sing up',
+  signUp: 'sign up',
   signIn: 'sign in',
   username: 'username',
   email: 'email',
