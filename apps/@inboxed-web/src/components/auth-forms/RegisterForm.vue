@@ -1,8 +1,8 @@
 <template>
   <AuthFormContainer>
     <AuthFormTitle>{{ capitalize($t('authForms.singUp')) }}</AuthFormTitle>
-    <form @submit.prevent="registerUser">
-      <div class="form-inputs">
+    <form class="form" @submit.prevent="registerUser">
+      <div class="form--inputs">
         <AuthFormInput
           :label="capitalize($t('authForms.email'))"
           inputType="text"
@@ -23,7 +23,7 @@
           @input="setInputValue($event.target.value, 'password')"
         />
       </div>
-      <div class="form-buttons">
+      <div class="form--buttons">
         <AuthFormButton>{{ capitalize($t('authForms.register')) }}</AuthFormButton>
         <ButtonsDivider>{{ capitalize($t('authForms.hasAccount')) }}</ButtonsDivider>
         <AuthFormButton outline>{{ capitalize($t('authForms.logIn')) }}</AuthFormButton>
@@ -57,19 +57,19 @@ export default {
 </script>
 
 <style scoped lang="scss">
-form {
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   height: 93%;
 
-  .form-inputs {
+  &--inputs {
     padding-top: 2.4rem;
     width: 100%;
   }
 
-  .form-buttons {
+  &--buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -91,11 +91,11 @@ form {
 }
 
 @media (min-width: 1440px) {
-  form {
-    .form-inputs {
+  .form {
+    &--inputs {
       width: 95%;
     }
-    .form-buttons {
+    &--buttons {
       width: 95%;
       &__guest-text {
         font-size: 1.2rem;
@@ -109,25 +109,27 @@ form {
     h1 {
       font-size: 2rem;
     }
-    .form-inputs {
-      padding-top: 0.5rem;
-      .auth-form-input {
-        margin-bottom: 0.8rem;
-        .auth-form-input__label {
-          font-size: 1.2rem;
-        }
-        .auth-form-input__background {
-          height: 3.5rem; //why it's not running?
+    .form {
+      &--inputs {
+        padding-top: 0.5rem;
+        .auth-form-input {
+          margin-bottom: 0.8rem;
+          &__label {
+            font-size: 1.2rem;
+          }
+          &__background {
+            height: 3.3rem; //why it's not running?
+          }
         }
       }
-    }
-    .form-buttons {
-      margin: 1rem 0;
-      button {
-        height: 35px;
-      }
-      .buttons-divider {
-        margin: 0.5rem;
+      &--buttons {
+        margin: 1rem 0;
+        button {
+          height: 35px;
+        }
+        .buttons-divider {
+          margin: 0.5rem;
+        }
       }
     }
   }
