@@ -70,7 +70,7 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 93%;
+  min-height: 87vh;
 
   &--inputs {
     padding-top: 2.4rem;
@@ -98,38 +98,11 @@ export default defineComponent({
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1024px) {
   .form {
-    &--inputs {
-      width: 95%;
-    }
+    min-height: fit-content;
     &--buttons {
-      width: 95%;
-      &__guest-text {
-        font-size: 1.2rem;
-      }
-    }
-  }
-}
-@media (orientation: landscape) and (max-width: 640px) {
-  .auth-form-container {
-    padding-top: 1rem;
-    .form {
-      &--inputs {
-        padding-top: 0.5rem;
-        .auth-form-input {
-          margin-bottom: 0.8rem;
-        }
-      }
-      &--buttons {
-        margin: 1rem 0;
-        button {
-          height: 45px;
-        }
-        .buttons-divider {
-          margin: 0.5rem;
-        }
-      }
+      margin-top: 10vh;
     }
   }
 }
