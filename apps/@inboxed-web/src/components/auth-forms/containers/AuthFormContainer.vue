@@ -12,42 +12,14 @@ export default {};
 .auth-form-container {
   background-color: $secondary-color;
   width: 100%;
-  height: 100%;
-  padding: 2rem;
-}
-
-@media (min-width: 760px) {
-  .auth-form-container {
-    width: 80%;
-    height: 60%;
-  }
+  min-height: 100vh;
+  padding: 2.5rem;
 }
 
 @media (min-width: 1024px) {
   .auth-form-container {
-    width: 65%;
-    height: 45%;
-  }
-}
-
-@media (min-width: 1280px) {
-  .auth-form-container {
-    width: 40%;
-    height: 65%;
-  }
-}
-
-@media (min-width: 1440px) {
-  .auth-form-container {
-    width: 37%;
-    height: 65%;
-  }
-}
-
-@media (min-width: 1920px) {
-  .auth-form-container {
-    width: 28%;
-    height: 60%;
+    max-width: 40%;
+    min-height: fit-content;
   }
 }
 </style>

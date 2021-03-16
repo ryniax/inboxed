@@ -1,28 +1,29 @@
 <template>
   <AuthFormContainer>
-    <AuthFormTitle>{{ $t('authForms.signIn') }}</AuthFormTitle>
-    <form @submit.prevent="loginUser">
-      <div class="form-inputs">
+    <AuthFormTitle>{{ capitalize($t('authForms.signIn')) }}</AuthFormTitle>
+    <form class="form" @submit.prevent="loginUser">
+      <div class="form--inputs">
         <AuthFormInput
-          :label="$t('authForms.email')"
+          :label="capitalize($t('authForms.email'))"
           inputType="text"
           iconName="email-icon"
           @input="setInputValue($event.target.value, 'email')"
         />
         <AuthFormInput
-          :label="$t('authForms.password')"
+          :label="capitalize($t('authForms.password'))"
           inputType="password"
           iconName="password-icon"
-          :underLabel="$t('authForms.forgotPassword')"
+          :underLabel="capitalize($t('authForms.forgotPassword'))"
           @input="setInputValue($event.target.value, 'password')"
         />
       </div>
-      <div class="form-buttons">
-        <AuthFormButton>{{ $t('authForms.logIn') }}</AuthFormButton>
-        <ButtonsDivider>{{ $t('authForms.noAccount') }}</ButtonsDivider>
-        <AuthFormButton outline>{{ $t('authForms.register') }}</AuthFormButton>
-        <span class="form-buttons__guest-text"
-          >{{ $t('authForms.guestAccount') }} <span>{{ $t('authForms.guest') }}</span></span
+      <div class="form--buttons">
+        <AuthFormButton>{{ capitalize($t('authForms.logIn')) }}</AuthFormButton>
+        <ButtonsDivider>{{ capitalize($t('authForms.noAccount')) }}</ButtonsDivider>
+        <AuthFormButton outline>{{ capitalize($t('authForms.register')) }}</AuthFormButton>
+        <span class="form--buttons__guest-text"
+          >{{ capitalize($t('authForms.guestAccount')) }}
+          <span> {{ capitalize($t('authForms.guest')) }}</span></span
         >
       </div>
     </form>
@@ -38,6 +39,7 @@ import AuthFormContainer from '@/components/auth-forms/containers/AuthFormContai
 import AuthFormInput from '@/components/auth-forms/core/AuthFormInput.vue';
 import AuthFormButton from '@/components/auth-forms/core/AuthFormButton.vue';
 import ButtonsDivider from '@/components/auth-forms/utils/ButtonsDivider.vue';
+import capitalize from '@/utils/capitalize';
 
 export default defineComponent({
   components: {
@@ -50,32 +52,32 @@ export default defineComponent({
   setup() {
     const loginFormData = reactive({});
     const AuthModule = getModule(Auth);
-
     const loginUser = () => AuthModule.loginUser(loginFormData);
     const setInputValue = (value, name) => (loginFormData[name] = value);
 
     return {
       loginUser,
       setInputValue,
+      capitalize,
     };
   },
 });
 </script>
 
 <style scoped lang="scss">
-form {
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 93%;
+  min-height: 87vh;
 
-  .form-inputs {
+  &--inputs {
     padding-top: 2.4rem;
     width: 100%;
   }
 
-  .form-buttons {
+  &--buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -96,16 +98,11 @@ form {
   }
 }
 
-@media (min-width: 1440px) {
-  form {
-    .form-inputs {
-      width: 95%;
-    }
-    .form-buttons {
-      width: 95%;
-      &__guest-text {
-        font-size: 1.2rem;
-      }
+@media (min-width: 1024px) {
+  .form {
+    min-height: fit-content;
+    &--buttons {
+      margin-top: 10vh;
     }
   }
 }

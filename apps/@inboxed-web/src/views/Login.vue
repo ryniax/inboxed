@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent } from 'vue';
 import AuthViewContainer from '../components/auth-forms/containers/AuthViewContainer.vue';
 import LoginForm from '../components/auth-forms/LoginForm.vue';
 
@@ -13,9 +13,6 @@ export default defineComponent({
   components: {
     LoginForm,
     AuthViewContainer,
-  },
-  setup() {
-    onMounted(() => console.log('test'));
   },
 });
 </script>
