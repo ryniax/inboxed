@@ -61,7 +61,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 93%;
+  min-height: 87vh;
 
   &--inputs {
     padding-top: 2.4rem;
@@ -89,32 +89,11 @@ export default {
   }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1024px) {
   .form {
-    &--inputs {
-      width: 95%;
-    }
+    min-height: fit-content;
     &--buttons {
-      width: 95%;
-      &__guest-text {
-        font-size: 1.2rem;
-      }
-    }
-  }
-}
-@media (orientation: landscape) and (max-width: 640px) {
-  .auth-form-container {
-    padding-top: 1rem;
-    h1 {
-      font-size: 2rem;
-    }
-    .form {
-      &--inputs {
-        padding-top: 0.5rem;
-      }
-      &--buttons {
-        margin: 1rem 0;
-      }
+      margin-top: 10vh;
     }
   }
 }
