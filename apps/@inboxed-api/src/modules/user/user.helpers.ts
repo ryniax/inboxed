@@ -1,4 +1,4 @@
-import { FindUserParams } from '../../types/FindUserParams';
+import { FindUserParams } from '@inboxed/common';
 
 export const mapUserParamsToQuery = (findUserParams: FindUserParams) => {
   const queryParams: Array<{ [key: string]: unknown }> = [];

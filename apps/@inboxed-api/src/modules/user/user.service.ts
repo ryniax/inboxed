@@ -1,11 +1,11 @@
 import { getRepository } from 'typeorm';
 import bcrypt from 'bcryptjs';
-import { User, UserType } from '../../models/User';
+import { FindUserParams, UserType } from '@inboxed/common';
+import { User } from '../../models/User';
 import { userDTO } from './user.dto';
 import { HTTPError } from '../../utils/errors/httpError';
 import { InputError } from '../../utils/errors/inputError';
 import { mapUserParamsToQuery } from './user.helpers';
-import { FindUserParams } from '../../types/FindUserParams';
 
 const findUser = async (findUserParams: FindUserParams): Promise<User | undefined> => {
   const isParamObjectEmpty = !Object.keys(findUserParams).length;

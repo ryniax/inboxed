@@ -1,9 +1,5 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-
-export enum UserType {
-  GUEST = 'GUEST',
-  REGISTERED = 'REGISTERED',
-}
+import { UserType } from '@inboxed/common';
 
 @Entity('Users')
 export class User extends BaseEntity {

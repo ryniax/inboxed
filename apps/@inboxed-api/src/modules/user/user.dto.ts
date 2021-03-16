@@ -1,6 +1,6 @@
-import { User } from '../../models/User';
+import { UserEntity } from '@inboxed/common';
 
-export const userDTO = (user: User) => ({
+export const userDTO = (user: UserEntity) => ({
   id: user.id,
   nickname: user.nickname,
   email: user.email,
