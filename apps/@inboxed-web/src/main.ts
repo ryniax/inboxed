@@ -11,6 +11,7 @@ import en_EN from './locale/en_EN';
 import pl_PL from './locale/pl_PL';
 
 const socket: Socket = establishSocketConnection();
+
 const i18n = createI18n({
   messages: {
     en: en_EN,
