@@ -9,6 +9,7 @@ export default class AuthModule extends VuexModule {
     console.log(loginFormData.email, loginFormData.password);
   }
 
+  @Action
   async registerUser(registerFormData: { email: string; username: string; password: string }) {
     // eslint-disable-next-line no-console
     console.log(registerFormData.email, registerFormData.username, registerFormData.password);

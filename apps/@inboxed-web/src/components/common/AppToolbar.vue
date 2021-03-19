@@ -25,20 +25,21 @@ export default {};
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 40px;
+  height: $toolbar-height;
   background-color: $primary-color-darker;
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
 
   &__logo {
     height: 100%;
-    width: 80px;
+    max-width: 6vw;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0 1.5rem;
     span {
       font-family: $primary-font;
       color: white;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       text-transform: uppercase;
       font-weight: 600;
     }
