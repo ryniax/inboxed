@@ -68,7 +68,7 @@ export default defineComponent({
       padding-right: 0.8rem;
       height: 100%;
       width: 100%;
-      background: none;
+      background: $primary-color-darker;
       border: none;
       outline: none;
       color: white;
