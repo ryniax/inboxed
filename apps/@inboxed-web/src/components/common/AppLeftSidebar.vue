@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar">
+  <div class="left-sidebar">
     <Servers />
   </div>
 </template>
@@ -16,8 +16,9 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.sidebar {
+.left-sidebar {
   background: $primary-color-darker;
   height: calc(100vh - #{$toolbar-height});
+  max-width: 6vw;
 }
 </style>
