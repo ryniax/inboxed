@@ -2,8 +2,9 @@
   <div class="app">
     <AppToolbar />
     <div class="content">
-      <AppSidebar />
+      <AppLeftSidebar />
       <router-view />
+      <AppRightSidebar />
     </div>
   </div>
 </template>
@@ -11,12 +12,14 @@
 <script>
 import { defineComponent } from 'vue';
 import AppToolbar from './components/common/AppToolbar.vue';
-import AppSidebar from './components/common/AppSidebar.vue';
+import AppLeftSidebar from './components/common/AppLeftSidebar.vue';
+import AppRightSidebar from './components/common/AppRightSidebar.vue';
 
 export default defineComponent({
   components: {
     AppToolbar,
-    AppSidebar,
+    AppLeftSidebar,
+    AppRightSidebar,
   },
 });
 </script>
@@ -29,6 +32,8 @@ export default defineComponent({
 }
 
 .content {
+  width: 100%;
+  height: calc(100vh - #{$toolbar-height});
   display: flex;
 }
 </style>

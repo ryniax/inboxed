@@ -10,18 +10,41 @@
       <div v-for="(server, index) in 5" :key="index" class="servers__server-list__server">
         <span>G</span>
       </div>
-      <div class="servers__server-list__server-action">
+      <div class="servers__server-list__server-action" @click="switchCreateServerModal">
         <img src="../../assets/icons/plus-icon.svg" alt="" />
       </div>
       <div class="servers__server-list__server-action">
         <img src="../../assets/icons/search-icon.svg" alt="" />
       </div>
     </div>
+    <CreateServerModal
+      :isOpen="createServerModalOpen"
+      @create-server-modal-close="switchCreateServerModal"
+    />
   </div>
 </template>
 
 <script>
-export default {};
+import { defineComponent, ref } from 'vue';
+import CreateServerModal from '../modals/CreateServerModal.vue';
+
+export default defineComponent({
+  components: {
+    CreateServerModal,
+  },
+  setup() {
+    const createServerModalOpen = ref(false);
+
+    const switchCreateServerModal = () => {
+      createServerModalOpen.value = !createServerModalOpen.value;
+    };
+
+    return {
+      createServerModalOpen,
+      switchCreateServerModal,
+    };
+  },
+});
 </script>
 
 <style scoped lang="scss">
@@ -29,7 +52,7 @@ export default {};
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 6vw;
+  width: 100%;
   height: 100%;
   padding: 1rem 1.5rem;
 

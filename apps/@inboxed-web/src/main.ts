@@ -23,10 +23,9 @@ const i18n = createI18n({
 
 const vueApp = createApp(Main);
 
-vueApp
-  .use(store)
-  .use(router)
-  .use(i18n)
-  .mount('#app');
+vueApp.use(store);
+vueApp.use(router);
+vueApp.use(i18n);
+vueApp.mount('#app');
 
 vueApp.config.globalProperties.$socket = socket;
