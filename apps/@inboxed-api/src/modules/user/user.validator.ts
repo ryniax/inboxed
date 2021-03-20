@@ -13,7 +13,7 @@ const registerUserValidation = [
     .withMessage(`Nickname should be at least ${MINIMUM_NICKNAME_LENGTH} character long.`),
   check('password')
     .isLength({ min: MINIMUM_PASSWORD_LENGTH })
-    .withMessage(`Nickname should be at least ${MINIMUM_PASSWORD_LENGTH} character long.`),
+    .withMessage(`password should be at least ${MINIMUM_PASSWORD_LENGTH} character long.`),
 ];
 
 const loginUserValidation = [

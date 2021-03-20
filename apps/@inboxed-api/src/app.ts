@@ -5,6 +5,7 @@ import swaggerDocs from '../swagger.json';
 import { connectDatabase } from './database/connection';
 import { middlewares } from './middlewares/index';
 import userRouter from './modules/user/router';
+import serverRouter from './modules/server/router';
 
 const app = express();
 connectDatabase();
@@ -16,6 +17,7 @@ app.use(middlewares.session);
 app.use(middlewares.httpLogger);
 
 app.use('/api/v1', userRouter);
+app.use('/api/v1', serverRouter);
 app.use('/api/v1/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs, { explorer: true }));
 
 app.use(middlewares.notFoundErrorHandler);
