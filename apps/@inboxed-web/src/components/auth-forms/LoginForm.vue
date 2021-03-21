@@ -52,6 +52,7 @@ export default defineComponent({
   setup() {
     const loginFormData = reactive({});
     const AuthModule = getModule(Auth);
+
     const loginUser = () => AuthModule.loginUser(loginFormData);
     const setInputValue = (value, name) => (loginFormData[name] = value);
 

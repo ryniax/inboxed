@@ -1,17 +1,22 @@
 import { Action, Module, VuexModule } from 'vuex-module-decorators';
 import store from '@/store';
+import { HTTPPost } from '../api';
 
-@Module({ dynamic: true, store, name: 'AuthModule' })
+@Module({ dynamic: true, store, name: 'Auth' })
 export default class AuthModule extends VuexModule {
-  @Action
+  @Action({ rawError: true })
   async loginUser(loginFormData: { email: string; password: string }) {
-    // eslint-disable-next-line no-console
-    console.log(loginFormData.email, loginFormData.password);
+    try {
+      const data = { email: loginFormData.email, password: loginFormData.password };
+      const { data: loginUserResponse } = await HTTPPost('/users/session', data);
+      console.log(loginUserResponse);
+    } catch (error) {
+      console.log(error.response);
+    }
   }
 
   @Action
   async registerUser(registerFormData: { email: string; username: string; password: string }) {
-    // eslint-disable-next-line no-console
-    console.log(registerFormData.email, registerFormData.username, registerFormData.password);
+    console.log(registerFormData);
   }
 }

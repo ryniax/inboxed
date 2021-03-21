@@ -1,6 +1,7 @@
 import express from 'express';
 import http from 'http';
 import swaggerUI from 'swagger-ui-express';
+import cors from 'cors';
 import swaggerDocs from '../swagger.json';
 import { connectDatabase } from './database/connection';
 import { middlewares } from './middlewares/index';
@@ -12,6 +13,7 @@ connectDatabase();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors({ origin: 'http://localhost:8080', credentials: true }));
 app.use(middlewares.helmet);
 app.use(middlewares.session);
 app.use(middlewares.httpLogger);
