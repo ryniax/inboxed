@@ -17,6 +17,12 @@ export default class AuthModule extends VuexModule {
 
   @Action
   async registerUser(registerFormData: { email: string; username: string; password: string }) {
-    console.log(registerFormData);
+    try{
+      const data = {email: registerFormData.email, username: registerFormData.username, password: registerFormData.password}
+      const {data: registerUserResponse} = await HTTPPost('/users', data);
+      console.log(registerUserResponse);
+    }catch(error){
+      console.log(error.response);
+    }
   }
 }
