@@ -6,11 +6,10 @@ services:
     ports:
       - 5000:5432
     volumes:
-      - sql-data:/var/lib/postgres
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: inboxed
   adminer:
     container_name: inboxed_adminer
     depends_on:
@@ -18,5 +17,3 @@ services:
     image: adminer
     ports:
       - 5001:8080
-volumes:
-  sql-data:

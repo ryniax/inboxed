@@ -1,18 +1,31 @@
 import { ConnectionOptions } from 'typeorm';
-import { accessEnv } from './src/utils/accessEnv';
 
-const isProduction = accessEnv('NODE_ENV') === 'production';
-
-const connectionOptions: ConnectionOptions = {
-  type: 'postgres',
-  host: accessEnv('DEV_DB_HOST'),
-  port: 5000,
-  username: accessEnv('DEV_DB_USER'),
-  password: accessEnv('DEV_DB_PASSWORD'),
-  database: accessEnv('DEV_DB_NAME'),
-  logging: !isProduction,
-  synchronize: !isProduction,
-  entities: ['./src/models/*.ts'],
-};
+const connectionOptions: ConnectionOptions[] = [
+  {
+    name: 'development',
+    type: 'postgres',
+    host: 'localhost',
+    port: 5000,
+    username: 'root',
+    password: 'root',
+    database: 'db_inboxed_dev',
+    synchronize: true,
+    logging: true,
+    entities: ['./src/models/*.ts'],
+  },
+  {
+    name: 'test',
+    type: 'postgres',
+    host: 'localhost',
+    port: 5000,
+    username: 'root',
+    password: 'root',
+    database: 'db_inboxed_test',
+    synchronize: true,
+    logging: true,
+    entities: ['./src/models/*.ts'],
+    dropSchema: true,
+  },
+];
 
 module.exports = connectionOptions;
