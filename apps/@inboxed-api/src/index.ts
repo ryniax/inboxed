@@ -1,3 +1,4 @@
 import 'reflect-metadata';
+import { runApp } from './server';
 
-import './server';
+runApp();
