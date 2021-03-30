@@ -13,7 +13,7 @@
           :label="capitalize($t('authForms.username'))"
           inputType="text"
           iconName="user-icon"
-          @input="setInputValue($event.target.value, 'username')"
+          @input="setInputValue($event.target.value, 'nickname')"
         />
         <AuthFormInput
           :label="capitalize($t('authForms.password'))"
@@ -25,21 +25,26 @@
       <div class="form--buttons">
         <AuthFormButton>{{ capitalize($t('authForms.register')) }}</AuthFormButton>
         <ButtonsDivider>{{ capitalize($t('authForms.hasAccount')) }}</ButtonsDivider>
-        <AuthFormButton outline>{{ capitalize($t('authForms.logIn')) }}</AuthFormButton>
+        <AuthFormButton outline @click="goToLoginPage">{{
+          capitalize($t('authForms.logIn'))
+        }}</AuthFormButton>
       </div>
     </form>
   </AuthFormContainer>
 </template>
 
 <script>
+import { defineComponent, reactive } from 'vue';
+import { getModule } from 'vuex-module-decorators';
 import AuthFormTitle from '@/components/auth-forms/core/AuthFormTitle.vue';
 import AuthFormContainer from '@/components/auth-forms/containers/AuthFormContainer.vue';
 import AuthFormInput from '@/components/auth-forms/core/AuthFormInput.vue';
 import AuthFormButton from '@/components/auth-forms/core/AuthFormButton.vue';
 import ButtonsDivider from '@/components/auth-forms/utils/ButtonsDivider.vue';
+import Auth from '@/store/AuthModule';
 import capitalize from '@/utils/capitalize';
 
-export default {
+export default defineComponent({
   components: {
     AuthFormContainer,
     AuthFormTitle,
@@ -48,11 +53,19 @@ export default {
     ButtonsDivider,
   },
   setup() {
+    const registerFormData = reactive({});
+    const AuthModule = getModule(Auth);
+    const goToLoginPage = () => this.$router.replace('/login');
+    const registerUser = () => AuthModule.registerUser(registerFormData);
+    const setInputValue = (value, name) => (registerFormData[name] = value);
     return {
       capitalize,
+      registerUser,
+      setInputValue,
+      goToLoginPage,
     };
   },
-};
+});
 </script>
 
 <style scoped lang="scss">

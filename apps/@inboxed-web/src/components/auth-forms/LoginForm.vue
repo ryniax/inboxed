@@ -20,7 +20,9 @@
       <div class="form--buttons">
         <AuthFormButton>{{ capitalize($t('authForms.logIn')) }}</AuthFormButton>
         <ButtonsDivider>{{ capitalize($t('authForms.noAccount')) }}</ButtonsDivider>
-        <AuthFormButton outline>{{ capitalize($t('authForms.register')) }}</AuthFormButton>
+        <AuthFormButton outline @click="goToRegisterPage">{{
+          capitalize($t('authForms.register'))
+        }}</AuthFormButton>
         <span class="form--buttons__guest-text"
           >{{ capitalize($t('authForms.guestAccount')) }}
           <span> {{ capitalize($t('authForms.guest')) }}</span></span
@@ -40,6 +42,7 @@ import AuthFormInput from '@/components/auth-forms/core/AuthFormInput.vue';
 import AuthFormButton from '@/components/auth-forms/core/AuthFormButton.vue';
 import ButtonsDivider from '@/components/auth-forms/utils/ButtonsDivider.vue';
 import capitalize from '@/utils/capitalize';
+import router from '../../router';
 
 export default defineComponent({
   components: {
@@ -52,14 +55,14 @@ export default defineComponent({
   setup() {
     const loginFormData = reactive({});
     const AuthModule = getModule(Auth);
-
+    const goToRegisterPage = () => this.router.replace('/register');
     const loginUser = () => AuthModule.loginUser(loginFormData);
     const setInputValue = (value, name) => (loginFormData[name] = value);
-
     return {
       loginUser,
       setInputValue,
       capitalize,
+      goToRegisterPage,
     };
   },
 });
