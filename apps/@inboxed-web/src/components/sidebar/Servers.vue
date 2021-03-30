@@ -17,15 +17,14 @@
         <img src="../../assets/icons/search-icon.svg" alt="" />
       </div>
     </div>
-    <CreateServerModal
-      :isOpen="createServerModalOpen"
-      @create-server-modal-close="switchCreateServerModal"
-    />
+    <CreateServerModal @create-server-modal-close="switchCreateServerModal" />
   </div>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
+import { getModule } from 'vuex-module-decorators';
+import Modals from '../../store/ModalsModule';
 import CreateServerModal from '../modals/CreateServerModal.vue';
 
 export default defineComponent({
@@ -33,14 +32,11 @@ export default defineComponent({
     CreateServerModal,
   },
   setup() {
-    const createServerModalOpen = ref(false);
+    const ModalsModule = getModule(Modals);
 
-    const switchCreateServerModal = () => {
-      createServerModalOpen.value = !createServerModalOpen.value;
-    };
+    const switchCreateServerModal = () => ModalsModule.switchNewServerModal();
 
     return {
-      createServerModalOpen,
       switchCreateServerModal,
     };
   },

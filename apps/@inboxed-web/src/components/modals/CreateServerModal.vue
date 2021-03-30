@@ -18,16 +18,21 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
+import { getModule } from 'vuex-module-decorators';
+import Modals from '../../store/ModalsModule';
 
 export default defineComponent({
   emits: ['create-server-modal-close'],
-  props: ['isOpen'],
-  setup(props, { emit }) {
+  setup(_, { emit }) {
+    const ModalsModule = getModule(Modals);
+
     const handleClose = () => emit('create-server-modal-close');
+    const isOpen = computed(() => ModalsModule.newServerModalValue);
 
     return {
       handleClose,
+      isOpen,
     };
   },
 });
@@ -106,6 +111,7 @@ export default defineComponent({
       background: $primary-accent-color;
       color: black;
       font-size: 1.4rem;
+      font-family: $primary-font;
       font-weight: 700;
       text-transform: uppercase;
       border: none;
