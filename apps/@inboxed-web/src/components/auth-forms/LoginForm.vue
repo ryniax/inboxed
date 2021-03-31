@@ -20,7 +20,9 @@
       <div class="form--buttons">
         <AuthFormButton>{{ capitalize($t('authForms.logIn')) }}</AuthFormButton>
         <ButtonsDivider>{{ capitalize($t('authForms.noAccount')) }}</ButtonsDivider>
-        <AuthFormButton outline>{{ capitalize($t('authForms.register')) }}</AuthFormButton>
+        <AuthFormButton outline @click="goToRegisterPage">{{
+          capitalize($t('authForms.register'))
+        }}</AuthFormButton>
         <span class="form--buttons__guest-text"
           >{{ capitalize($t('authForms.guestAccount')) }}
           <span> {{ capitalize($t('authForms.guest')) }}</span></span
@@ -33,6 +35,7 @@
 <script>
 import { defineComponent, reactive } from 'vue';
 import { getModule } from 'vuex-module-decorators';
+import { useRouter } from 'vue-router';
 import Auth from '@/store/AuthModule';
 import AuthFormTitle from '@/components/auth-forms/core/AuthFormTitle.vue';
 import AuthFormContainer from '@/components/auth-forms/containers/AuthFormContainer.vue';
@@ -50,16 +53,26 @@ export default defineComponent({
     ButtonsDivider,
   },
   setup() {
+    const router = useRouter();
     const loginFormData = reactive({});
     const AuthModule = getModule(Auth);
 
-    const loginUser = () => AuthModule.loginUser(loginFormData);
+    const goToRegisterPage = () => router.push({ name: 'register' });
+    const loginUser = async () => {
+      try {
+        await AuthModule.loginUser(loginFormData);
+        router.push({ name: 'app' });
+      } catch (error) {
+        throw new Error(error);
+      }
+    };
     const setInputValue = (value, name) => (loginFormData[name] = value);
 
     return {
       loginUser,
       setInputValue,
       capitalize,
+      goToRegisterPage,
     };
   },
 });

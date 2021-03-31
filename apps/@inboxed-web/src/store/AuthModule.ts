@@ -4,19 +4,34 @@ import { HTTPPost } from '../api';
 
 @Module({ dynamic: true, store, name: 'Auth' })
 export default class AuthModule extends VuexModule {
+  user!: object;
+
   @Action({ rawError: true })
   async loginUser(loginFormData: { email: string; password: string }) {
     try {
       const data = { email: loginFormData.email, password: loginFormData.password };
       const { data: loginUserResponse } = await HTTPPost('/users/session', data);
-      console.log(loginUserResponse);
+
+      this.user = loginUserResponse.body.user;
     } catch (error) {
-      console.log(error.response);
+      throw new Error(error);
     }
   }
 
-  @Action
-  async registerUser(registerFormData: { email: string; username: string; password: string }) {
-    console.log(registerFormData);
+  @Action({ rawError: true })
+  async registerUser(registerFormData: { email: string; nickname: string; password: string }) {
+    try {
+      const data = {
+        email: registerFormData.email,
+        nickname: registerFormData.nickname,
+        password: registerFormData.password,
+      };
+      const { data: registerUserResponse } = await HTTPPost('/users', data);
+
+      this.user = registerUserResponse.body.user;
+    } catch (error) {
+      console.log(error.response);
+      throw new Error(error);
+    }
   }
 }
