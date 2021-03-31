@@ -20,14 +20,14 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'register',
-        name: 'Register',
+        name: 'register',
         component: Register,
       },
     ],
   },
   {
     path: '/app',
-    name: 'App',
+    name: 'app',
     component: App,
     redirect: '/app/dashboard',
     children: [

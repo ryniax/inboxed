@@ -1,11 +1,12 @@
-import { createConnection, Connection } from 'typeorm';
+import { createConnection, Connection, getConnectionOptions } from 'typeorm';
 import Logger from '../providers/logger';
 import { accessEnv } from '../utils/accessEnv';
 
 export const connectDatabase = async (): Promise<Connection> => {
   try {
-    const connectionName = accessEnv('NODE_ENV');
-    const connection: Connection = await createConnection(connectionName);
+    const connectionEnv = accessEnv('NODE_ENV');
+    const connectionOptions = await getConnectionOptions(connectionEnv);
+    const connection: Connection = await createConnection({ ...connectionOptions, name: 'default' });
 
     Logger.info('Database connected.');
     return connection;

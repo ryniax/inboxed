@@ -36,6 +36,7 @@
 <script>
 import { defineComponent, reactive } from 'vue';
 import { getModule } from 'vuex-module-decorators';
+import { useRouter } from 'vue-router';
 import AuthFormTitle from '@/components/auth-forms/core/AuthFormTitle.vue';
 import AuthFormContainer from '@/components/auth-forms/containers/AuthFormContainer.vue';
 import AuthFormInput from '@/components/auth-forms/core/AuthFormInput.vue';
@@ -53,11 +54,21 @@ export default defineComponent({
     ButtonsDivider,
   },
   setup() {
+    const router = useRouter();
     const registerFormData = reactive({});
     const AuthModule = getModule(Auth);
-    const goToLoginPage = () => this.$router.replace('/login');
-    const registerUser = () => AuthModule.registerUser(registerFormData);
+
+    const goToLoginPage = () => router.push({ name: 'login' });
+    const registerUser = async () => {
+      try {
+        await AuthModule.registerUser(registerFormData);
+        router.push({ name: 'app' });
+      } catch (error) {
+        throw new Error(error);
+      }
+    };
     const setInputValue = (value, name) => (registerFormData[name] = value);
+
     return {
       capitalize,
       registerUser,

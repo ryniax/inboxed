@@ -35,6 +35,7 @@
 <script>
 import { defineComponent, reactive } from 'vue';
 import { getModule } from 'vuex-module-decorators';
+import { useRouter } from 'vue-router';
 import Auth from '@/store/AuthModule';
 import AuthFormTitle from '@/components/auth-forms/core/AuthFormTitle.vue';
 import AuthFormContainer from '@/components/auth-forms/containers/AuthFormContainer.vue';
@@ -42,7 +43,6 @@ import AuthFormInput from '@/components/auth-forms/core/AuthFormInput.vue';
 import AuthFormButton from '@/components/auth-forms/core/AuthFormButton.vue';
 import ButtonsDivider from '@/components/auth-forms/utils/ButtonsDivider.vue';
 import capitalize from '@/utils/capitalize';
-import router from '../../router';
 
 export default defineComponent({
   components: {
@@ -53,11 +53,21 @@ export default defineComponent({
     ButtonsDivider,
   },
   setup() {
+    const router = useRouter();
     const loginFormData = reactive({});
     const AuthModule = getModule(Auth);
-    const goToRegisterPage = () => this.router.replace('/register');
-    const loginUser = () => AuthModule.loginUser(loginFormData);
+
+    const goToRegisterPage = () => router.push({ name: 'register' });
+    const loginUser = async () => {
+      try {
+        await AuthModule.loginUser(loginFormData);
+        router.push({ name: 'app' });
+      } catch (error) {
+        throw new Error(error);
+      }
+    };
     const setInputValue = (value, name) => (loginFormData[name] = value);
+
     return {
       loginUser,
       setInputValue,

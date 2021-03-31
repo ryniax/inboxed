@@ -1,20 +1,20 @@
 import { Action, Module, VuexModule } from 'vuex-module-decorators';
 import store from '@/store';
 import { HTTPPost } from '../api';
-import router from '../router/index';
 
 @Module({ dynamic: true, store, name: 'Auth' })
 export default class AuthModule extends VuexModule {
-  router: any;
+  user!: object;
+
   @Action({ rawError: true })
   async loginUser(loginFormData: { email: string; password: string }) {
     try {
       const data = { email: loginFormData.email, password: loginFormData.password };
       const { data: loginUserResponse } = await HTTPPost('/users/session', data);
-      console.log(loginUserResponse);
-      this.router.replace('/app/dashboard');
+
+      this.user = loginUserResponse.body.user;
     } catch (error) {
-      console.log(error.response.data);
+      throw new Error(error);
     }
   }
 
@@ -27,10 +27,11 @@ export default class AuthModule extends VuexModule {
         password: registerFormData.password,
       };
       const { data: registerUserResponse } = await HTTPPost('/users', data);
-      this.router.replace('/app/dashboard');
-      console.log(registerUserResponse);
+
+      this.user = registerUserResponse.body.user;
     } catch (error) {
       console.log(error.response);
+      throw new Error(error);
     }
   }
 }
