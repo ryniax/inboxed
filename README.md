@@ -58,6 +58,4 @@ In progress.
 # Useful Resources
 
 [Designs in Figma](https://www.figma.com/file/T9l3qS4m43YFZwwKQUQtbb/Inboxed?node-id=0%3A1)<br />
-[Trello Board](https://trello.com/b/bGXrujai/inboxed)
-<br />
 [Project Wiki](https://github.com/gLenczuk/inboxed/wiki)
