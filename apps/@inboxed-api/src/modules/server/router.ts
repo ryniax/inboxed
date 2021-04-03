@@ -13,5 +13,6 @@ router.post(
   checkValidation,
   serverController.createServer,
 );
+router.get('/servers/me', middlewares.isAuth, serverController.getServersForUser);
 
 export default router;

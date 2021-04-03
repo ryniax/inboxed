@@ -14,6 +14,19 @@ const createServer = async (req: Request, res: Response, next: NextFunction) => 
   }
 };
 
+const getServersForUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { userId } = req.session;
+
+    const servers = await serverService.getServersForUser(userId as number);
+
+    SendResponse(res, { servers }, 200, 'Servers found.');
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   createServer,
+  getServersForUser,
 };

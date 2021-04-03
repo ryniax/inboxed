@@ -1,9 +1,10 @@
 import slugify from 'slugify';
 import { getRepository } from 'typeorm';
 import { Server } from '../../models/Server';
+import { User } from '../../models/User';
 import { HTTPError } from '../../utils/errors/httpError';
 import userService from '../user/user.service';
-import { serverDTO } from './server.dto';
+import { serverDTO, serversDTO } from './server.dto';
 
 const createServer = async (userId: number, serverName: string) => {
   const user = await userService.findUser({ id: userId });
@@ -24,6 +25,16 @@ const createServer = async (userId: number, serverName: string) => {
   return serverDTO(server);
 };
 
+const getServersForUser = async (userId: number) => {
+  const userRepository = getRepository(User);
+  const user = await userRepository.findOne(userId, { relations: ['servers'] });
+
+  if (!user) throw new HTTPError('User not found. Cannot get servers.', 404);
+
+  return serversDTO(user.servers);
+};
+
 export default {
   createServer,
+  getServersForUser,
 };

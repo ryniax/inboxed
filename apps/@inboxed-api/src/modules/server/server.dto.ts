@@ -7,3 +7,5 @@ export const serverDTO = (server: Server) => ({
   createdAt: server.createdAt,
   updatedAt: server.updatedAt,
 });
+
+export const serversDTO = (servers: Server[]) => servers;
