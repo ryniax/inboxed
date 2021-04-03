@@ -1,10 +1,11 @@
-import { Action, Module, VuexModule } from 'vuex-module-decorators';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Action, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import store from '@/store';
-import { HTTPPost } from '../api';
+import { HTTPGet, HTTPPost } from '../api';
 
 @Module({ dynamic: true, store, name: 'Auth' })
 export default class AuthModule extends VuexModule {
-  user!: object;
+  user!: any; // temporary, type to change
 
   @Action({ rawError: true })
   async loginUser(loginFormData: { email: string; password: string }) {
@@ -12,7 +13,7 @@ export default class AuthModule extends VuexModule {
       const data = { email: loginFormData.email, password: loginFormData.password };
       const { data: loginUserResponse } = await HTTPPost('/users/session', data);
 
-      this.user = loginUserResponse.body.user;
+      this.setUser(loginUserResponse.body.user);
     } catch (error) {
       throw new Error(error);
     }
@@ -28,10 +29,29 @@ export default class AuthModule extends VuexModule {
       };
       const { data: registerUserResponse } = await HTTPPost('/users', data);
 
-      this.user = registerUserResponse.body.user;
+      this.setUser(registerUserResponse.body.user);
     } catch (error) {
-      console.log(error.response);
       throw new Error(error);
     }
+  }
+
+  @Action({ rawError: true })
+  async getSessionUser() {
+    try {
+      const { data: sessionUserResponse } = await HTTPGet('/users/session');
+      this.setUser(sessionUserResponse.body.user);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  // temporary any, type to change
+  @Mutation
+  setUser(user: any) {
+    this.user = user;
+  }
+
+  get getUser() {
+    return this.user;
   }
 }

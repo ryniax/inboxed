@@ -29,7 +29,7 @@ export class User extends BaseEntity {
   @Column({ type: 'enum', enum: UserType, default: UserType.GUEST })
   userType!: UserType;
 
-  @ManyToMany(() => Server, (server) => server.users, { cascade: true, eager: true })
+  @ManyToMany(() => Server, (server) => server.users, { cascade: true })
   @JoinTable({ name: 'Users_Servers_Association' })
   servers!: Server[];
 

@@ -5,8 +5,6 @@ export const userDTO = (user: User) => ({
   nickname: user.nickname,
   email: user.email,
   userType: user.userType,
-  servers: user.servers,
-  ownedServers: user.ownedServers,
   createdAt: user.createdAt,
   updatedAt: user.updatedAt,
 });
