@@ -5,9 +5,11 @@ import {
   CreateDateColumn,
   Entity,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Channel } from './Channel';
 import { User } from './User';
 
 @Entity('Servers')
@@ -26,6 +28,9 @@ export class Server extends BaseEntity {
 
   @ManyToMany(() => User, (user) => user.ownedServers)
   admins!: User[];
+
+  @OneToMany(() => Channel, (channel) => channel.server)
+  channels!: Channel[];
 
   @CreateDateColumn()
   createdAt!: Date;
