@@ -7,7 +7,12 @@
     </div>
     <div class="servers__divider"></div>
     <div class="servers__server-list">
-      <div v-for="(server, index) in userServers" :key="index" class="servers__server-list__server">
+      <div
+        v-tooltip.right="server.name"
+        v-for="(server, index) in userServers"
+        :key="index"
+        class="servers__server-list__server"
+      >
         <span>{{ getFirstLetter(server.name) }}</span>
       </div>
       <div class="servers__server-list__server-action" @click="switchCreateServerModal">
