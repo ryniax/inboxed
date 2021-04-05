@@ -33,7 +33,7 @@ export class User extends BaseEntity {
   @JoinTable({ name: 'Users_Servers_Association' })
   servers!: Server[];
 
-  @ManyToMany(() => Server, (server) => server.admins, { cascade: true })
+  @ManyToMany(() => Server, (server) => server.admins, { cascade: true, eager: true })
   @JoinTable({ name: 'Admins_Servers_Association' })
   ownedServers!: Server[];
 

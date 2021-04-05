@@ -8,7 +8,7 @@
     <div class="servers__divider"></div>
     <div class="servers__server-list">
       <div v-for="(server, index) in userServers" :key="index" class="servers__server-list__server">
-        <span>{{ index }}</span>
+        <span>{{ getFirstLetter(server.name) }}</span>
       </div>
       <div class="servers__server-list__server-action" @click="switchCreateServerModal">
         <img src="../../assets/icons/plus-icon.svg" alt="" />
@@ -21,8 +21,8 @@
   </div>
 </template>
 
-<script>
-import { computed, defineComponent, onMounted } from 'vue';
+<script lang="ts">
+import { computed, defineComponent, onBeforeMount } from 'vue';
 import { getModule } from 'vuex-module-decorators';
 import Modals from '../../store/ModalsModule';
 import Servers from '../../store/ServersModule';
@@ -37,13 +37,15 @@ export default defineComponent({
     const ServersModule = getModule(Servers);
 
     const switchCreateServerModal = () => ModalsModule.switchNewServerModal();
-    const userServers = computed(ServersModule.getServers);
+    const userServers = computed(() => ServersModule.getUserServers);
+    const getFirstLetter = (name: string) => name.charAt(0).toUpperCase();
 
-    onMounted(ServersModule.getServers);
+    onBeforeMount(() => ServersModule.getServers());
 
     return {
       switchCreateServerModal,
       userServers,
+      getFirstLetter,
     };
   },
 });

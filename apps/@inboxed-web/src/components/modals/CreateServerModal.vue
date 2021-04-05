@@ -6,33 +6,47 @@
       <form class="modal__form">
         <div>
           <span>server name</span>
-          <input type="text" placeholder="eg. Fluffy Goggles" />
+          <input v-model="serverName" type="text" placeholder="eg. Fluffy Goggles" />
         </div>
       </form>
       <div class="modal__actions">
         <span @click="handleClose">Back</span>
-        <button>Create</button>
+        <button @click="createServer">Create</button>
       </div>
     </div>
   </teleport>
 </template>
 
 <script>
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import { getModule } from 'vuex-module-decorators';
 import Modals from '../../store/ModalsModule';
+import Servers from '../../store/ServersModule';
 
 export default defineComponent({
   emits: ['create-server-modal-close'],
   setup(_, { emit }) {
     const ModalsModule = getModule(Modals);
+    const ServersModule = getModule(Servers);
+    const serverName = ref('');
 
     const handleClose = () => emit('create-server-modal-close');
     const isOpen = computed(() => ModalsModule.newServerModalValue);
 
+    const createServer = async () => {
+      try {
+        await ServersModule.createServer(serverName.value);
+        handleClose();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     return {
       handleClose,
       isOpen,
+      serverName,
+      createServer,
     };
   },
 });
