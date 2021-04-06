@@ -29,7 +29,7 @@ export class Server extends BaseEntity {
   @ManyToMany(() => User, (user) => user.ownedServers)
   admins!: User[];
 
-  @OneToMany(() => Channel, (channel) => channel.server)
+  @OneToMany(() => Channel, (channel) => channel.server, { eager: true })
   channels!: Channel[];
 
   @CreateDateColumn()

@@ -5,6 +5,7 @@ import Login from '../views/Login.vue';
 import Register from '../views/Register.vue';
 import NotFound from '../views/404.vue';
 import Dashboard from '../views/Dashboard.vue';
+import Server from '../views/Server.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -35,6 +36,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'dashboard',
         name: 'dashboard',
         component: Dashboard,
+      },
+      {
+        path: 'server',
+        name: 'server',
+        component: Server,
       },
     ],
   },

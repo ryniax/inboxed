@@ -1,7 +1,7 @@
 <template>
   <div class="servers">
     <div class="servers__dashboard-container">
-      <div class="servers__dashboard-container__dashboard-icon">
+      <div @click="goToDashboard" class="servers__dashboard-container__dashboard-icon">
         <img src="../../assets/icons/home-icon.svg" alt="" />
       </div>
     </div>
@@ -12,6 +12,7 @@
         v-for="(server, index) in userServers"
         :key="index"
         class="servers__server-list__server"
+        @click="goToServer(server.id)"
       >
         <span>{{ getFirstLetter(server.name) }}</span>
       </div>
@@ -28,6 +29,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, onBeforeMount } from 'vue';
+import { useRouter } from 'vue-router';
 import { getModule } from 'vuex-module-decorators';
 import Modals from '../../store/ModalsModule';
 import Servers from '../../store/ServersModule';
@@ -38,6 +40,7 @@ export default defineComponent({
     CreateServerModal,
   },
   setup() {
+    const router = useRouter();
     const ModalsModule = getModule(Modals);
     const ServersModule = getModule(Servers);
 
@@ -45,12 +48,17 @@ export default defineComponent({
     const userServers = computed(() => ServersModule.getUserServers);
     const getFirstLetter = (name: string) => name.charAt(0).toUpperCase();
 
+    const goToServer = (id: number) => router.push({ name: 'server', params: { serverId: id } });
+    const goToDashboard = () => router.push({ name: 'dashboard' });
+
     onBeforeMount(() => ServersModule.getServers());
 
     return {
       switchCreateServerModal,
       userServers,
       getFirstLetter,
+      goToServer,
+      goToDashboard,
     };
   },
 });
