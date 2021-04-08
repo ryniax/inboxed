@@ -5,7 +5,6 @@
         <img src="../../assets/icons/home-icon.svg" alt="" />
       </div>
     </div>
-    <div class="servers__divider"></div>
     <div class="servers__server-list">
       <div
         v-tooltip.right="server.name"
@@ -48,7 +47,10 @@ export default defineComponent({
     const userServers = computed(() => ServersModule.getUserServers);
     const getFirstLetter = (name: string) => name.charAt(0).toUpperCase();
 
-    const goToServer = (id: number) => router.push({ name: 'server', params: { serverId: id } });
+    const goToServer = (id: number) => {
+      ServersModule.setCurrentServer(id);
+      router.push({ name: 'server', params: { serverId: id } });
+    };
     const goToDashboard = () => router.push({ name: 'dashboard' });
 
     onBeforeMount(() => ServersModule.getServers());
@@ -79,6 +81,7 @@ export default defineComponent({
     align-items: center;
     justify-content: center;
     width: 100%;
+    margin-bottom: 1.3rem;
 
     &__dashboard-icon {
       display: flex;

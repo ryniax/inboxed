@@ -1,18 +1,24 @@
 <template>
   <div class="server">
-    <h1>Super server</h1>
+    <Channels />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
+import Channels from '../components/sidebar/Channels.vue';
 
 export default defineComponent({
+  components: {
+    Channels,
+  },
   setup() {
     const route = useRoute();
 
-    onMounted(() => console.log(route));
+    return {
+      route,
+    };
   },
 });
 </script>

@@ -5,7 +5,8 @@ import { HTTPGet, HTTPPost } from '../api';
 
 @Module({ dynamic: true, store, name: 'Servers' })
 export default class ServersModule extends VuexModule {
-  userServers!: any; // temporary, type to change
+  userServers: any = []; // temporary, type to change
+  currentServer = {}; // temporary, type to change
 
   @Action({ rawError: true })
   async getServers() {
@@ -33,7 +34,18 @@ export default class ServersModule extends VuexModule {
     this.userServers = servers;
   }
 
+  // temporary any, type to change
+  @Mutation
+  setCurrentServer(serverId: any) {
+    const currentServer = this.userServers.find((server: any) => server.id === serverId);
+    this.currentServer = currentServer;
+  }
+
   get getUserServers() {
     return this.userServers;
+  }
+
+  get getCurrentServer() {
+    return this.currentServer;
   }
 }
