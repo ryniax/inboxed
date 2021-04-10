@@ -1,14 +1,27 @@
 <template>
-  <div class="channels">
+  <div v-if="currentServer.name" class="channels">
     <div class="channels__server-name">
-      <h2 class="channels__server-name">{{ capitalize(currentServer.name) }}</h2>
+      <h2 class="channels__server-name">
+        {{ capitalize(currentServer.name) }}
+      </h2>
     </div>
+
     <div class="channels__list">
-      <h2 class="channels__list--title">channels</h2>
-      <div class="channels__list--item" v-for="(channel, index) in 3" :key="index">
+      <h2 class="channels__list--title">
+        channels
+        <img
+          @click="showNewChannelModal"
+          class="channels__list--title__add-channel"
+          src="../../assets/icons/plus-icon.svg"
+          alt=""
+        />
+      </h2>
+
+      <div class="channels__list--item" v-for="(channel, index) in 1" :key="index">
         <span class="channels__list--item__channel-name"># general</span>
       </div>
     </div>
+    <CreateChannelModal />
   </div>
 </template>
 
@@ -16,17 +29,25 @@
 import { computed, defineComponent } from 'vue';
 import { getModule } from 'vuex-module-decorators';
 import Servers from '../../store/ServersModule';
+import Modals from '../../store/ModalsModule';
 import capitalize from '../../utils/capitalize';
+import CreateChannelModal from '../modals/CreateChannelModal.vue';
 
 export default defineComponent({
+  components: {
+    CreateChannelModal,
+  },
   setup() {
     const ServersModule = getModule(Servers);
+    const ModalsModule = getModule(Modals);
 
     const currentServer = computed(() => ServersModule.getCurrentServer);
+    const showNewChannelModal = () => ModalsModule.switchNewChannelModal();
 
     return {
       currentServer,
       capitalize,
+      showNewChannelModal,
     };
   },
 });
@@ -53,12 +74,21 @@ export default defineComponent({
     margin-top: 1rem;
 
     &--title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       text-transform: uppercase;
       font-weight: 700;
       color: $secondary-accent-color;
       font-family: $primary-font;
       padding: 0 0.3rem;
       margin-bottom: 0.9rem;
+
+      &__add-channel {
+        width: 1.6rem;
+        height: 1.6rem;
+        cursor: pointer;
+      }
     }
 
     &--item {
