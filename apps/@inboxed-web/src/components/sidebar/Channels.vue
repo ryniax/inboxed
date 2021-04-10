@@ -17,8 +17,12 @@
         />
       </h2>
 
-      <div class="channels__list--item" v-for="(channel, index) in 1" :key="index">
-        <span class="channels__list--item__channel-name"># general</span>
+      <div
+        class="channels__list--item"
+        v-for="(channel, index) in currentServer.channels"
+        :key="index"
+      >
+        <span class="channels__list--item__channel-name"># {{ channel.name }}</span>
       </div>
     </div>
     <CreateChannelModal />
