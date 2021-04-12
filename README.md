@@ -52,10 +52,3 @@ In progress.
 ## Desktop Setup
 
 In progress.
-
-<a name="useful-resources"></a>
-
-# Useful Resources
-
-[Designs in Figma](https://www.figma.com/file/T9l3qS4m43YFZwwKQUQtbb/Inboxed?node-id=0%3A1)<br />
-[Project Wiki](https://github.com/gLenczuk/inboxed/wiki)
