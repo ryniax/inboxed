@@ -12,7 +12,6 @@ Inboxed is an educational project of a network communicator, inspired by applica
 
 [Technologies](#technologies)<br/>
 [Project Setup Instructions](#project-setup-instructions)<br/>
-[Useful Resources](#useful-resources)
 
 <a name="technologies"></a>
 
