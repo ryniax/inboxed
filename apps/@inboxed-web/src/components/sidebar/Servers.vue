@@ -11,7 +11,7 @@
         v-for="(server, index) in userServers"
         :key="index"
         class="servers__server-list__server"
-        @click="goToServer(server.id)"
+        @click="goToServer(server.id, server.name, currentServer.name)"
       >
         <span>{{ getFirstLetter(server.name) }}</span>
       </div>
@@ -33,6 +33,7 @@ import { getModule } from 'vuex-module-decorators';
 import Modals from '../../store/ModalsModule';
 import Servers from '../../store/ServersModule';
 import CreateServerModal from '../modals/CreateServerModal.vue';
+import { socket } from '../../main';
 
 export default defineComponent({
   components: {
@@ -44,10 +45,15 @@ export default defineComponent({
     const ServersModule = getModule(Servers);
 
     const switchCreateServerModal = () => ModalsModule.switchNewServerModal();
+
     const userServers = computed(() => ServersModule.getUserServers);
+    const currentServer = computed(() => ServersModule.getCurrentServer);
+
     const getFirstLetter = (name: string) => name.charAt(0).toUpperCase();
 
-    const goToServer = (id: number) => {
+    const goToServer = (id: number, name: string, currentServerName: string) => {
+      if (currentServerName) socket.emit('LEAVE_SERVER', currentServerName);
+      socket.emit('JOIN_SERVER', name);
       ServersModule.setCurrentServer(id);
       router.push({ name: 'server', params: { serverId: id } });
     };
@@ -61,6 +67,7 @@ export default defineComponent({
       getFirstLetter,
       goToServer,
       goToDashboard,
+      currentServer,
     };
   },
 });

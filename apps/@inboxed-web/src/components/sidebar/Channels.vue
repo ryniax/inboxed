@@ -1,5 +1,5 @@
 <template>
-  <div v-if="currentServer.name" class="channels">
+  <div v-if="currentServer" class="channels">
     <div class="channels__server-name">
       <h2 class="channels__server-name">
         {{ capitalize(currentServer.name) }}
