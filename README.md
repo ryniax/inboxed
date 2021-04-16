@@ -12,7 +12,6 @@ Inboxed is an educational project of a network communicator, inspired by applica
 
 [Technologies](#technologies)<br/>
 [Project Setup Instructions](#project-setup-instructions)<br/>
-[Useful Resources](#useful-resources)
 
 <a name="technologies"></a>
 
@@ -52,10 +51,3 @@ In progress.
 ## Desktop Setup
 
 In progress.
-
-<a name="useful-resources"></a>
-
-# Useful Resources
-
-[Designs in Figma](https://www.figma.com/file/T9l3qS4m43YFZwwKQUQtbb/Inboxed?node-id=0%3A1)<br />
-[Project Wiki](https://github.com/gLenczuk/inboxed/wiki)
