@@ -6,7 +6,7 @@ import { HTTPGet, HTTPPost } from '../api';
 @Module({ dynamic: true, store, name: 'Servers' })
 export default class ServersModule extends VuexModule {
   userServers: any = []; // temporary, type to change
-  currentServer = {}; // temporary, type to change
+  currentServer: any = {}; // temporary, type to change
 
   @Action({ rawError: true })
   async getServers() {
@@ -23,6 +23,17 @@ export default class ServersModule extends VuexModule {
     try {
       await HTTPPost('/servers', { name: serverName });
       this.getServers();
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  @Action({ rawError: true })
+  async createChannel(channelName: string) {
+    try {
+      await HTTPPost('/channels', { name: channelName, serverId: this.currentServer.id });
+      await this.getServers();
+      this.setCurrentServer(this.currentServer.id);
     } catch (error) {
       throw new Error(error);
     }

@@ -21,19 +21,31 @@
 import { computed, defineComponent, ref } from 'vue';
 import { getModule } from 'vuex-module-decorators';
 import Modals from '../../store/ModalsModule';
+import Servers from '../../store/ServersModule';
 
 export default defineComponent({
   setup() {
     const ModalsModule = getModule(Modals);
+    const ServersModule = getModule(Servers);
     const channelName = ref('');
 
     const handleClose = () => ModalsModule.switchNewChannelModal();
     const isOpen = computed(() => ModalsModule.newChannelModalValue);
 
+    const createChannel = async () => {
+      try {
+        await ServersModule.createChannel(channelName.value);
+        handleClose();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     return {
       handleClose,
       isOpen,
       channelName,
+      createChannel,
     };
   },
 });
