@@ -35,6 +35,7 @@ export default class ServersModule extends VuexModule {
     try {
       await HTTPPost('/channels', { name: channelName, serverId: this.currentServer.id });
       await this.getServers();
+      this.setCurrentServer(this.currentServer.id);
     } catch (error) {
       throw new Error(error);
     }

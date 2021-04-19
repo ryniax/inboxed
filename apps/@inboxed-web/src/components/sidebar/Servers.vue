@@ -59,8 +59,6 @@ export default defineComponent({
     };
     const goToDashboard = () => router.push({ name: 'dashboard' });
 
-    onBeforeMount(() => ServersModule.getServers());
-
     return {
       switchCreateServerModal,
       userServers,
