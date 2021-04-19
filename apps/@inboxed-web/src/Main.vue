@@ -17,8 +17,6 @@ export default defineComponent({
     const getUser = async () => {
       try {
         await AuthModule.getSessionUser();
-
-        if (route.name !== 'dashboard') router.push({ name: 'dashboard' });
       } catch (error) {
         if (route.name !== 'login') router.push({ name: 'login' });
       }

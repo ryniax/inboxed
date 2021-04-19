@@ -55,6 +55,8 @@ export default class ServersModule extends VuexModule {
 
     const { 0: currentChannel } = this.currentServer.channels;
     this.currentChannel = currentChannel;
+
+    localStorage.setItem('lastCurrentServerId', serverId);
   }
 
   // temporary any, type to change
