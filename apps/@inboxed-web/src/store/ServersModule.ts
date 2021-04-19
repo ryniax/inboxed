@@ -7,6 +7,7 @@ import { HTTPGet, HTTPPost } from '../api';
 export default class ServersModule extends VuexModule {
   userServers: any = []; // temporary, type to change
   currentServer: any = {}; // temporary, type to change
+  currentChannel: any = {}; // temporary, type to change
 
   @Action({ rawError: true })
   async getServers() {
@@ -23,6 +24,7 @@ export default class ServersModule extends VuexModule {
     try {
       await HTTPPost('/servers', { name: serverName });
       this.getServers();
+      this.setCurrentServer(this.currentServer.id);
     } catch (error) {
       throw new Error(error);
     }
@@ -33,7 +35,6 @@ export default class ServersModule extends VuexModule {
     try {
       await HTTPPost('/channels', { name: channelName, serverId: this.currentServer.id });
       await this.getServers();
-      this.setCurrentServer(this.currentServer.id);
     } catch (error) {
       throw new Error(error);
     }
@@ -49,7 +50,17 @@ export default class ServersModule extends VuexModule {
   @Mutation
   setCurrentServer(serverId: any) {
     const currentServer = this.userServers.find((server: any) => server.id === serverId);
+
     this.currentServer = currentServer;
+
+    const { 0: currentChannel } = this.currentServer.channels;
+    this.currentChannel = currentChannel;
+  }
+
+  // temporary any, type to change
+  @Mutation
+  setCurrentChannel(channel: any) {
+    this.currentChannel = channel;
   }
 
   get getUserServers() {
@@ -58,5 +69,9 @@ export default class ServersModule extends VuexModule {
 
   get getCurrentServer() {
     return this.currentServer;
+  }
+
+  get getCurrentChannel() {
+    return this.currentChannel;
   }
 }

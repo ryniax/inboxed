@@ -21,6 +21,7 @@
         class="channels__list--item"
         v-for="(channel, index) in currentServer.channels"
         :key="index"
+        @click="goToChannel(channel)"
       >
         <span class="channels__list--item__channel-name"># {{ channel.name }}</span>
       </div>
@@ -48,10 +49,15 @@ export default defineComponent({
     const currentServer = computed(() => ServersModule.getCurrentServer);
     const showNewChannelModal = () => ModalsModule.switchNewChannelModal();
 
+    const goToChannel = (channel: any) => {
+      ServersModule.setCurrentChannel(channel);
+    };
+
     return {
       currentServer,
       capitalize,
       showNewChannelModal,
+      goToChannel,
     };
   },
 });
@@ -59,7 +65,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .channels {
-  width: 15vw;
+  width: 20%;
   height: 100%;
   background-color: $primary-color;
 
