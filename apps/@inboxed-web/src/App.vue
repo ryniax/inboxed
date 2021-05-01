@@ -38,6 +38,7 @@ export default defineComponent({
 
         if (isServerRoute && !currentServer.id) {
           ServersModule.setCurrentServer(userServers[0].id);
+          ServersModule.initChannelsMessages();
         }
       } catch (error) {
         console.log(error);

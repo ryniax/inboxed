@@ -8,6 +8,7 @@ export default class ServersModule extends VuexModule {
   userServers: any = []; // temporary, type to change
   currentServer: any = {}; // temporary, type to change
   currentChannel: any = {}; // temporary, type to change
+  channelsMessages: any = []; // temporary, type to change
 
   @Action({ rawError: true })
   async getServers() {
@@ -47,6 +48,24 @@ export default class ServersModule extends VuexModule {
     this.userServers = servers;
   }
 
+  @Mutation
+  initChannelsMessages() {
+    this.currentServer.channels.forEach((channel: any) => {
+      const newChannelMessages = {
+        channelId: channel.id,
+        messages: [],
+      };
+
+      const messagesExist = this.channelsMessages.some(
+        (channelMessages: any) => channelMessages.channelId === newChannelMessages.channelId,
+      );
+      console.log(messagesExist);
+
+      if (!messagesExist || this.channelsMessages.length <= 0)
+        this.channelsMessages.push(newChannelMessages);
+    });
+  }
+
   // temporary any, type to change
   @Mutation
   setCurrentServer(serverId: any) {
@@ -56,8 +75,6 @@ export default class ServersModule extends VuexModule {
 
     const { 0: currentChannel } = this.currentServer.channels;
     this.currentChannel = currentChannel;
-
-    localStorage.setItem('lastCurrentServerId', serverId);
   }
 
   // temporary any, type to change
@@ -76,5 +93,9 @@ export default class ServersModule extends VuexModule {
 
   get getCurrentChannel() {
     return this.currentChannel;
+  }
+
+  get getChannelsMessages() {
+    return this.channelsMessages;
   }
 }

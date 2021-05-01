@@ -54,7 +54,10 @@ export default defineComponent({
     const goToServer = (id: number, name: string, currentServerName: string) => {
       if (currentServerName) socket.emit('LEAVE_SERVER', currentServerName);
       socket.emit('JOIN_SERVER', name);
+
       ServersModule.setCurrentServer(id);
+      ServersModule.initChannelsMessages();
+
       router.push({ name: 'server', params: { serverId: id } });
     };
     const goToDashboard = () => router.push({ name: 'dashboard' });
