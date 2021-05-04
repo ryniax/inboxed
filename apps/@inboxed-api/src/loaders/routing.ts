@@ -7,5 +7,8 @@ export const Routing = (app: Application) => {
   app.use('/api/v1', userRouter);
   app.use('/api/v1', serverRouter);
   app.use('/api/v1', channelRouter);
+  app.get('/debug-sentry', (req, res) => {
+    throw new Error('My first Sentry error!');
+  });
   return app;
 };

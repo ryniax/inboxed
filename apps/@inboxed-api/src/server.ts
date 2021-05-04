@@ -8,9 +8,11 @@ import { connectDatabase } from './database/connection';
 import { Middlewares } from './loaders/middlewares';
 import { Routing } from './loaders/routing';
 import { ErrorHandler } from './loaders/error';
+import { InitSentry } from './loaders/sentry';
 
 export const runApp = async () => {
   const app = express();
+  InitSentry(app);
 
   const PORT = accessEnv('PORT', 3000);
   const NODE_ENV = accessEnv('NODE_ENV', 'development');
