@@ -19,6 +19,7 @@
 
       <div
         class="channels__list--item"
+        :class="{ 'channels__list--item-selected': currentChannel.id === channel.id }"
         v-for="(channel, index) in currentServer.channels"
         :key="index"
         @click="goToChannel(channel)"
@@ -47,6 +48,7 @@ export default defineComponent({
     const ModalsModule = getModule(Modals);
 
     const currentServer = computed(() => ServersModule.getCurrentServer);
+    const currentChannel = computed(() => ServersModule.getCurrentChannel);
     const showNewChannelModal = () => ModalsModule.switchNewChannelModal();
 
     const goToChannel = (channel: any) => {
@@ -58,6 +60,7 @@ export default defineComponent({
       capitalize,
       showNewChannelModal,
       goToChannel,
+      currentChannel,
     };
   },
 });
@@ -114,6 +117,10 @@ export default defineComponent({
     }
 
     &--item:hover {
+      background-color: gray;
+    }
+
+    &--item-selected {
       background-color: gray;
     }
   }

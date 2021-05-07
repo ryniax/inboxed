@@ -14,5 +14,7 @@ router.post(
   serverController.createServer,
 );
 router.get('/servers/me', middlewares.isAuth, serverController.getServersForUser);
+router.get('/servers', middlewares.isAuth, serverController.getAllServers);
+router.post('/servers/users', middlewares.isAuth, serverController.joinServer);
 
 export default router;

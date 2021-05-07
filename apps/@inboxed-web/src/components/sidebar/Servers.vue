@@ -1,7 +1,7 @@
 <template>
   <div class="servers">
     <div class="servers__dashboard-container">
-      <div @click="goToDashboard" class="servers__dashboard-container__dashboard-icon">
+      <div @click="redirectTo('dashboard')" class="servers__dashboard-container__dashboard-icon">
         <img src="../../assets/icons/home-icon.svg" alt="" />
       </div>
     </div>
@@ -18,7 +18,7 @@
       <div class="servers__server-list__server-action" @click="switchCreateServerModal">
         <img src="../../assets/icons/plus-icon.svg" alt="" />
       </div>
-      <div class="servers__server-list__server-action">
+      <div @click="redirectTo('servers')" class="servers__server-list__server-action">
         <img src="../../assets/icons/search-icon.svg" alt="" />
       </div>
     </div>
@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onBeforeMount } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
 import { getModule } from 'vuex-module-decorators';
 import Modals from '../../store/ModalsModule';
@@ -60,15 +60,16 @@ export default defineComponent({
 
       router.push({ name: 'server', params: { serverId: id } });
     };
-    const goToDashboard = () => router.push({ name: 'dashboard' });
+
+    const redirectTo = (name: string) => router.push({ name });
 
     return {
       switchCreateServerModal,
       userServers,
       getFirstLetter,
       goToServer,
-      goToDashboard,
       currentServer,
+      redirectTo,
     };
   },
 });

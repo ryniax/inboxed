@@ -23,7 +23,7 @@ export class Server extends BaseEntity {
   @Column()
   slug!: string;
 
-  @ManyToMany(() => User, (user) => user.servers)
+  @ManyToMany(() => User, (user) => user.servers, { cascade: ['insert', 'update'] })
   users!: User[];
 
   @ManyToMany(() => User, (user) => user.ownedServers)

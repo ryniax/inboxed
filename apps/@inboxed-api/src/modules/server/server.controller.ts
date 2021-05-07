@@ -26,7 +26,30 @@ const getServersForUser = async (req: Request, res: Response, next: NextFunction
   }
 };
 
+const getAllServers = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const servers = await serverService.getAllServers();
+    SendResponse(res, { servers }, 200, 'Servers found.');
+  } catch (error) {
+    next(error);
+  }
+};
+
+const joinServer = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { serverId } = req.body;
+    const { userId } = req.session;
+
+    const server = await serverService.joinServer(userId as number, serverId as number);
+    SendResponse(res, { server }, 200, 'Joined server.');
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   createServer,
   getServersForUser,
+  getAllServers,
+  joinServer,
 };

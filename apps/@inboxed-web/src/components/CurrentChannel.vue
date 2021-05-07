@@ -12,6 +12,7 @@
     </div>
     <div class="current-channel__input">
       <textarea
+        v-model="message"
         placeholder="Type your message here..."
         @keydown.prevent.enter="sendMessage"
         rows="6"
@@ -22,51 +23,53 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive } from 'vue';
+import { computed, defineComponent, reactive, ref, watch } from 'vue';
 import { getModule } from 'vuex-module-decorators';
 import Servers from '../store/ServersModule';
+import Auth from '../store/AuthModule';
 import { socket } from '../main';
 
 export default defineComponent({
   setup() {
     const ServersModule = getModule(Servers);
+    const AuthModule = getModule(Auth);
+    const message = ref('');
 
     const messages = reactive([
       {
-        author: 'gLenczuk',
-        text: 'Elo, jak tam? Wszystko w porządku?',
-      },
-      {
-        author: 'Erres',
-        text: 'Najak, csik?',
-      },
-      {
-        author: 'gLenczuk',
-        text: 'CCCCCCCCCCCCCCCCCCCC',
+        author: 'SERVER BOT',
+        text: 'Welcome to the channel! You can start conversation.',
       },
     ]);
 
     const currentChannel = computed(() => ServersModule.getCurrentChannel);
     const sendMessage = () => {
-      socket.emit('SEND_MESSAGE', {
+      const newMessage = {
         server: ServersModule.getCurrentServer.name,
         channelId: ServersModule.getCurrentChannel.id,
-        text: 'new message',
-        author: 'gLenczuk',
-      });
+        text: message.value,
+        author: AuthModule.getUser.nickname,
+      };
+      socket.emit('SEND_MESSAGE', newMessage);
     };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const onMessageSent = (data: any) => {
-      console.log(data);
-      console.log(ServersModule.getChannelsMessages);
+    const onMessageSent = (newMessage: any) => {
+      if (newMessage.channelId === ServersModule.getCurrentChannel.id) {
+        messages.push(newMessage);
+      }
     };
 
     socket.on('ON_MESSAGE_SENT', onMessageSent);
+
+    watch(currentChannel, (currentValue, oldValue) => {
+      messages.splice(1, messages.length);
+    });
 
     return {
       currentChannel,
       sendMessage,
       messages,
+      message,
     };
   },
 });

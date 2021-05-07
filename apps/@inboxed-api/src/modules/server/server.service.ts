@@ -34,7 +34,32 @@ const getServersForUser = async (userId: number) => {
   return serversDTO(user.servers);
 };
 
+const getAllServers = async () => {
+  const serverRepository = getRepository(Server);
+
+  const servers = await serverRepository.find();
+  return serversDTO(servers);
+};
+
+const joinServer = async (userId: number, serverId: number) => {
+  const userRepository = getRepository(User);
+  const serverRepository = getRepository(Server);
+
+  const user = await userRepository.findOne(userId, { relations: ['servers'] });
+  const server = await serverRepository.findOne(serverId, { relations: ['users'] });
+
+  if (!user) throw new HTTPError('User not found.', 404);
+  if (!server) throw new HTTPError('Server not found.', 404);
+
+  server.users.push(user);
+  server.save();
+
+  return server;
+};
+
 export default {
   createServer,
   getServersForUser,
+  getAllServers,
+  joinServer,
 };

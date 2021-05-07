@@ -6,6 +6,7 @@ import Register from '../views/Register.vue';
 import NotFound from '../views/404.vue';
 import Dashboard from '../views/Dashboard.vue';
 import Server from '../views/Server.vue';
+import FindServer from '../views/FindServer.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -41,6 +42,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'server',
         name: 'server',
         component: Server,
+      },
+      {
+        path: 'servers',
+        name: 'servers',
+        component: FindServer,
       },
     ],
   },

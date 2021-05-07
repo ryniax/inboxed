@@ -59,7 +59,6 @@ export default class ServersModule extends VuexModule {
       const messagesExist = this.channelsMessages.some(
         (channelMessages: any) => channelMessages.channelId === newChannelMessages.channelId,
       );
-      console.log(messagesExist);
 
       if (!messagesExist || this.channelsMessages.length <= 0)
         this.channelsMessages.push(newChannelMessages);

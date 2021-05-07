@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent } from 'vue';
 import { useRoute } from 'vue-router';
 import Channels from '../components/sidebar/Channels.vue';
 import CurrentChannel from '../components/CurrentChannel.vue';
